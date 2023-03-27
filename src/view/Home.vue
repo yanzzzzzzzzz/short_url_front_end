@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import urlService from "../service/url";
 export default {
   data() {
     return {
@@ -33,10 +34,9 @@ export default {
   methods: {
     generateUrl() {
       console.log("generateUrl", this.url);
-      fetch("")
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
+      urlService.getShortenUrl(this.url).then((data) => {
+        console.log("data", data);
+      });
     },
   },
 };
