@@ -28,3 +28,10 @@ export default {
   methods: {},
 };
 </script>
+<style>
+.custom-class {
+  display: flex;
+  align-items: center;
+  height: 200px;
+}
+</style>

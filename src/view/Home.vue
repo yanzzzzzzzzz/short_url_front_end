@@ -68,37 +68,3 @@ export default {
   },
 };
 </script>
-<style>
-.custom-class {
-  display: flex;
-  align-items: center;
-  height: 200px;
-}
-.cross {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  background-color: #fff;
-  border: 1px solid #000;
-  color: #000;
-}
-
-.cross:before,
-.cross:after {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 1px;
-  background-color: #000;
-}
-
-.cross:before {
-  transform: rotate(45deg);
-}
-
-.cross:after {
-  transform: rotate(-45deg);
-}
-</style>
