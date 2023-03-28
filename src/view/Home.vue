@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-2" style="max-width: 550px; min-height: 300px">
+  <div class="container pt-2" style="max-width: 650px; min-height: 300px">
     <div class="row">
       <div class="col">
         <h1>Free URL Shortener</h1>
@@ -12,6 +12,7 @@
           class="form-control"
           placeholder="Enter link here"
           v-model="url"
+          style="width: 400px"
         />
       </div>
       <div class="col-auto">
