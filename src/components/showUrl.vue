@@ -14,7 +14,7 @@
       }}</a>
     </div>
     <div class="col-2 copy-class" @click="copyUrl(shortUrl)">Copy</div>
-    <div class="col-2 delete-class">Delete</div>
+    <div class="col-2 delete-class" @click="deleteUrl(shortUrl)">Delete</div>
   </div>
 </template>
 <script>
@@ -32,6 +32,7 @@ export default {
         alert("Success", "Your member information is edited.");
       });
     },
+    deleteUrl(url) {},
   },
 };
 </script>
