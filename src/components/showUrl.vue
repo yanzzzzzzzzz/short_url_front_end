@@ -5,7 +5,7 @@
     :key="url"
     style="text-align: left; height: 52px"
   >
-    <div class="col-5">
+    <div class="col-4">
       {{ url.substr(8, 25) }}
     </div>
     <div class="col-4">
@@ -13,8 +13,8 @@
         shortUrl.replace("http://localhost:", "")
       }}</a>
     </div>
-    <div class="col-1">Copy</div>
-    <div class="col-2">Delete</div>
+    <div class="col-2 copy-class" @click="copyUrl(shortUrl)">Copy</div>
+    <div class="col-2 delete-class">Delete</div>
   </div>
 </template>
 <script>
@@ -25,7 +25,14 @@ export default {
       type: Array,
     },
   },
-  methods: {},
+  methods: {
+    copyUrl(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        console.log("copy success");
+        alert("Success", "Your member information is edited.");
+      });
+    },
+  },
 };
 </script>
 <style>
@@ -33,5 +40,14 @@ export default {
   display: flex;
   align-items: center;
   height: 200px;
+}
+.copy-class {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.delete-class {
+  color: red;
+  cursor: pointer;
 }
 </style>
