@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <showUrl :urlMap="urlMap" />
+    <showUrl :urlMap="urlMap" @deleteUrl="deleteUrl" />
   </div>
   <div
     class="text-black"
@@ -65,6 +65,12 @@ export default {
     },
     addUrl(url, shortUrl) {
       this.urlMap[shortUrl] = url;
+    },
+    deleteUrl(urlObj) {
+      if (this.urlMap.hasOwnProperty(urlObj.shortUrl)) {
+        delete this.urlMap[urlObj.shortUrl];
+      }
+      console.log("deleteUrl", urlObj);
     },
   },
 };

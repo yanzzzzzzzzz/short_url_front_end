@@ -14,15 +14,18 @@
       }}</a>
     </div>
     <div class="col-2 copy-class" @click="copyUrl(shortUrl)">Copy</div>
-    <div class="col-2 delete-class" @click="deleteUrl(shortUrl)">Delete</div>
+    <div class="col-2 delete-class" @click="deleteUrl({ url, shortUrl })">
+      Delete
+    </div>
   </div>
 </template>
 <script>
 export default {
+  emits: ["deleteUrl"],
   props: {
     urlMap: {
       required: true,
-      type: Array,
+      type: Object,
     },
   },
   methods: {
@@ -32,7 +35,9 @@ export default {
         alert("Success", "Your member information is edited.");
       });
     },
-    deleteUrl(url) {},
+    deleteUrl(urlObj) {
+      this.$emit("deleteUrl", urlObj);
+    },
   },
 };
 </script>
