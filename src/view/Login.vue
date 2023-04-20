@@ -21,8 +21,8 @@ import loginService from "../service/login";
 export default {
   data() {
     return {
-      username: "",
-      password: "",
+      username: "mluukkai",
+      password: "salainen",
       errorMessage: "",
     };
   },
