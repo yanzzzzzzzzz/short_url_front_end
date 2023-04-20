@@ -50,13 +50,9 @@
           </li>
         </ul>
         <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <router-link to="/login">
+            <button class="btn btn-outline-success" type="submit">Login</button>
+          </router-link>
         </form>
       </div>
     </div>
