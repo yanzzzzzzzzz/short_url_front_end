@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <showUrl :urlMap="urlMap" @deleteUrl="deleteUrl" />
+    <showUrl :urlMap="urls" @deleteUrl="deleteUrl" />
   </div>
   <div
     class="text-black"
@@ -49,11 +49,18 @@ export default {
   data() {
     return {
       url: "",
-      urlMap: {
-        "https://goo.gl": "https://www.google.com",
-        "https://fb.me": "https://www.facebook.com",
-      },
+      urls: [
+        {
+          originUrl: "https://www.google.com",
+          shortUrl: "https://goo.gl",
+        },
+      ],
     };
+  },
+  async created() {
+    const { data: urls } = await urlService.getAllUrl();
+    this.urls = urls;
+    console.log("this.urls", this.urls);
   },
   methods: {
     generateUrl() {
@@ -64,12 +71,13 @@ export default {
       });
     },
     addUrl(url, shortUrl) {
-      this.urlMap[shortUrl] = url;
+      this.urls = this.urls.concat({
+        originUrl: url,
+        shortUrl: `${this.$root.$el.baseURI}api/${shortUrl}`,
+      });
     },
     deleteUrl(urlObj) {
-      if (this.urlMap.hasOwnProperty(urlObj.shortUrl)) {
-        delete this.urlMap[urlObj.shortUrl];
-      }
+      this.urls = this.urls.filter((url) => url.shortUrl !== urlObj.shortUrl);
       console.log("deleteUrl", urlObj);
     },
   },

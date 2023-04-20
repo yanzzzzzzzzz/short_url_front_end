@@ -1,23 +1,23 @@
 <template>
   <div
     class="row bg-white text-black rounded my-3 custom-class"
-    v-for="(url, shortUrl) in urlMap"
-    :key="url"
+    v-for="url in urlMap"
+    :key="url.shortUrl"
     style="text-align: left; height: 52px"
   >
     <div class="col-5">
-      {{ url.substr(8, 25) }}
+      {{ url.originUrl.replace(/^(https?:\/\/)?/, "") }}
     </div>
     <div class="col-5">
-      <a :href="shortUrl" target="_blank">{{
-        shortUrl.replace("http://localhost:", "")
+      <a :href="AddRedirectUrl(url.shortUrl)" target="_blank">{{
+        url.shortUrl
       }}</a>
     </div>
     <div class="col-auto">
       <font-awesome-icon
         :icon="['fa', 'copy']"
         size="lg"
-        @click="copyUrl(shortUrl)"
+        @click="copyUrl(url.shortUrl)"
         class="copy-class"
       />
     </div>
@@ -26,7 +26,7 @@
         class="delete-class"
         :icon="['fa', 'trash']"
         size="lg"
-        @click="deleteUrl({ url, shortUrl })"
+        @click="deleteUrl(url)"
       />
     </div>
   </div>
@@ -49,6 +49,9 @@ export default {
     },
     deleteUrl(urlObj) {
       this.$emit("deleteUrl", urlObj);
+    },
+    AddRedirectUrl(shortUrl) {
+      return `${this.$root.$el.baseURI}api/url/${shortUrl}`;
     },
   },
 };
