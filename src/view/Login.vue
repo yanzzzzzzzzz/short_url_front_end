@@ -36,6 +36,9 @@ export default {
           password: this.password,
         });
         console.log("response", response);
+        if (response.token) {
+          this.$router.push({ name: "home" });
+        }
       } else {
         this.errorMessage = "Please enter both username and password.";
       }
