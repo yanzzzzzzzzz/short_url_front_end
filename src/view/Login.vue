@@ -29,9 +29,7 @@ export default {
   },
   methods: {
     async login() {
-      // Perform login validation. Here we just check if the username and password are not empty.
       if (this.username && this.password) {
-        // Perform login action here
         const response = await loginService.login({
           username: this.username,
           password: this.password,
@@ -45,7 +43,7 @@ export default {
             name: response.name,
           });
           console.log('this.$store.state.user', this.$store.state.user);
-          // this.$router.push({ name: 'home' });
+          this.$router.push({ name: 'home' });
         }
       } else {
         this.errorMessage = 'Please enter both username and password.';
