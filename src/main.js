@@ -7,7 +7,6 @@ import 'bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCopy, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { createStore } from 'vuex';
 import store from './store';
 // import store from './store';
 
