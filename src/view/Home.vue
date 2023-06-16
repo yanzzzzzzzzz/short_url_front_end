@@ -60,13 +60,10 @@ export default {
   async created() {
     const { data: urls } = await urlService.getAllUrl();
     this.urls = urls;
-    console.log('this.urls', this.urls);
   },
   methods: {
     async generateUrl() {
-      console.log('generateUrl', this.url);
       const data = await urlService.createShortUrl(this.url);
-      console.log('data', data);
       this.addUrl(this.url, data.shortUrl);
     },
     addUrl(url, shortUrl) {
