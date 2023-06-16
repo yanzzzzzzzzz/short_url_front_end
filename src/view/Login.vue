@@ -17,13 +17,14 @@
 </template>
 
 <script>
-import loginService from "../service/login";
+import loginService from '../service/login';
+import urlService from '../service/url';
 export default {
   data() {
     return {
-      username: "mluukkai",
-      password: "salainen",
-      errorMessage: "",
+      username: 'mluukkai',
+      password: 'salainen',
+      errorMessage: '',
     };
   },
   methods: {
@@ -35,20 +36,27 @@ export default {
           username: this.username,
           password: this.password,
         });
-        console.log("response", response);
         if (response.token) {
-          this.$router.push({ name: "home" });
+          console.log('response', response);
+          urlService.setToken(response.token);
+          this.$store.dispatch('setUser', {
+            token: response.token,
+            username: response.username,
+            name: response.name,
+          });
+          console.log('this.$store.state.user', this.$store.state.user);
+          // this.$router.push({ name: 'home' });
         }
       } else {
-        this.errorMessage = "Please enter both username and password.";
+        this.errorMessage = 'Please enter both username and password.';
       }
     },
   },
 };
 </script>
 <style>
-input[type="text"],
-input[type="password"] {
+input[type='text'],
+input[type='password'] {
   margin: 10px 0;
 }
 </style>

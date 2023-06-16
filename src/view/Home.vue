@@ -40,19 +40,19 @@
 </template>
 
 <script>
-import urlService from "../service/url";
-import showUrl from "../components/showUrl.vue";
+import urlService from '../service/url';
+import showUrl from '../components/showUrl.vue';
 export default {
   components: {
     showUrl,
   },
   data() {
     return {
-      url: "",
+      url: '',
       urls: [
         {
-          originUrl: "https://www.google.com",
-          shortUrl: "https://goo.gl",
+          originUrl: 'https://www.google.com',
+          shortUrl: 'https://goo.gl',
         },
       ],
     };
@@ -60,25 +60,23 @@ export default {
   async created() {
     const { data: urls } = await urlService.getAllUrl();
     this.urls = urls;
-    console.log("this.urls", this.urls);
+    console.log('this.urls', this.urls);
   },
   methods: {
-    generateUrl() {
-      console.log("generateUrl", this.url);
-      urlService.getShortenUrl(this.url).then((data) => {
-        console.log("data", data);
-        this.addUrl(this.url, data.shortUrl);
-      });
+    async generateUrl() {
+      console.log('generateUrl', this.url);
+      const data = await urlService.createShortUrl(this.url);
+      console.log('data', data);
+      this.addUrl(this.url, data.shortUrl);
     },
     addUrl(url, shortUrl) {
       this.urls = this.urls.concat({
         originUrl: url,
-        shortUrl: `${this.$root.$el.baseURI}api/${shortUrl}`,
+        shortUrl: `${shortUrl}`,
       });
     },
     deleteUrl(urlObj) {
       this.urls = this.urls.filter((url) => url.shortUrl !== urlObj.shortUrl);
-      console.log("deleteUrl", urlObj);
     },
   },
 };

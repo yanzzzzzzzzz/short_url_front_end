@@ -1,24 +1,28 @@
-import axios from "axios";
-const apiClient = axios.create({
-  baseURL: "/api/url",
-});
-const getHello = () => {
-  const req = apiClient.get("");
-  return req.then((response) => response.data);
-};
+import axios from 'axios';
 
-const getShortenUrl = (url) => {
-  const response = apiClient.post("/", { url: url });
-  return response.then((response) => response.data);
+let token = null;
+const setToken = (newToken) => {
+  token = `bearer ${newToken}`;
+};
+const apiClient = axios.create({
+  baseURL: '/api/url',
+});
+
+const createShortUrl = async (url) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await apiClient.post('/', { url: url }, config);
+  return response.data;
 };
 
 const getAllUrl = () => {
-  const response = apiClient.get("/");
+  const response = apiClient.get('/');
   return response;
 };
 
 export default {
-  getHello,
-  getShortenUrl,
+  createShortUrl,
   getAllUrl,
+  setToken,
 };
