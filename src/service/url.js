@@ -16,8 +16,13 @@ const createShortUrl = async (url) => {
   return response.data;
 };
 
-const getAllUrl = () => {
+const getAllUrl = async () => {
   const response = apiClient.get('/');
+  return response;
+};
+
+const deleteUrl = async (url) => {
+  const response = apiClient.delete(`/${url}`);
   return response;
 };
 
@@ -25,4 +30,5 @@ export default {
   createShortUrl,
   getAllUrl,
   setToken,
+  deleteUrl,
 };

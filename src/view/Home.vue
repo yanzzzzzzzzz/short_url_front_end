@@ -72,8 +72,9 @@ export default {
         shortUrl: `${shortUrl}`,
       });
     },
-    deleteUrl(urlObj) {
+    async deleteUrl(urlObj) {
       this.urls = this.urls.filter((url) => url.shortUrl !== urlObj.shortUrl);
+      const response = await urlService.deleteUrl(urlObj.shortUrl);
     },
   },
 };
