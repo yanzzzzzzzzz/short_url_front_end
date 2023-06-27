@@ -49,12 +49,7 @@ export default {
   data() {
     return {
       url: '',
-      urls: [
-        {
-          originUrl: 'https://www.google.com',
-          shortUrl: 'https://goo.gl',
-        },
-      ],
+      urls: [],
     };
   },
   async created() {
@@ -65,6 +60,7 @@ export default {
     async generateUrl() {
       const data = await urlService.createShortUrl(this.url);
       this.addUrl(this.url, data.shortUrl);
+      this.url = '';
     },
     addUrl(url, shortUrl) {
       this.urls = this.urls.concat({
