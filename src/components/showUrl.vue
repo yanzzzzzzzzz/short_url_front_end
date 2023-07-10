@@ -10,10 +10,9 @@
         url.originUrl.replace(/^(https?:\/\/)?/, '').slice(0, maxLength) + '...'
       }}
     </div>
-    <div class="col-5">
-      <a :href="AddRedirectUrl(url.shortUrl)" target="_blank">{{
-        url.shortUrl
-      }}</a>
+    <div class="col-4"></div>
+    <div class="col-auto">
+      <font-awesome-icon :icon="['fa', 'link']" size="lg" />
     </div>
     <div class="col-auto">
       <font-awesome-icon
@@ -56,9 +55,6 @@ export default {
     },
     deleteUrl(urlObj) {
       this.$emit('deleteUrl', urlObj);
-    },
-    AddRedirectUrl(shortUrl) {
-      return `${this.$root.$el.baseURI}api/url/${shortUrl}`;
     },
   },
 };
