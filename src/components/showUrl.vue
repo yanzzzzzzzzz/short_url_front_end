@@ -12,7 +12,12 @@
     </div>
     <div class="col-4"></div>
     <div class="col-auto">
-      <font-awesome-icon :icon="['fa', 'link']" size="lg" />
+      <font-awesome-icon
+        class="cursor-pointer"
+        :icon="['fa', 'link']"
+        size="lg"
+        @click="openRedirectUrl(url.shortUrl)"
+      />
     </div>
     <div class="col-auto">
       <font-awesome-icon
@@ -56,6 +61,10 @@ export default {
     deleteUrl(urlObj) {
       this.$emit('deleteUrl', urlObj);
     },
+    openRedirectUrl(shortUrl) {
+      const url = `${window.location.origin}\\api\\url\\${shortUrl}`;
+      window.open(url, '_blank');
+    },
   },
 };
 </script>
@@ -72,6 +81,9 @@ export default {
 
 .delete-class {
   color: red;
+  cursor: pointer;
+}
+.cursor-pointer {
   cursor: pointer;
 }
 </style>
