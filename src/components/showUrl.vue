@@ -13,7 +13,7 @@
     <div class="col-4"></div>
     <div class="col-auto">
       <font-awesome-icon
-        class="cursor-pointer"
+        class="cursor-pointer text-blue-500"
         :icon="['fa', 'link']"
         size="lg"
         @click="openRedirectUrl(url.shortUrl)"
@@ -21,15 +21,15 @@
     </div>
     <div class="col-auto">
       <font-awesome-icon
+        class="cursor-pointer text-gray-500"
         :icon="['fa', 'copy']"
         size="lg"
         @click="copyUrl(url.shortUrl)"
-        class="copy-class"
       />
     </div>
     <div class="col-auto">
       <font-awesome-icon
-        class="delete-class"
+        class="cursor-pointer text-red-500"
         :icon="['fa', 'trash']"
         size="lg"
         @click="deleteUrl(url)"
@@ -73,17 +73,5 @@ export default {
   display: flex;
   align-items: center;
   height: 200px;
-}
-.copy-class {
-  color: #007bff;
-  cursor: pointer;
-}
-
-.delete-class {
-  color: red;
-  cursor: pointer;
-}
-.cursor-pointer {
-  cursor: pointer;
 }
 </style>
