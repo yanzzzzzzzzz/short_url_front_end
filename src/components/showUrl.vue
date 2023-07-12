@@ -13,7 +13,8 @@
     <div class="col-4"></div>
     <div class="col-auto">
       <font-awesome-icon
-        class="cursor-pointer text-blue-500"
+        class="text-primary"
+        role="button"
         :icon="['fa', 'link']"
         size="lg"
         @click="openRedirectUrl(url.shortUrl)"
@@ -21,7 +22,8 @@
     </div>
     <div class="col-auto">
       <font-awesome-icon
-        class="cursor-pointer text-gray-500"
+        class="text-secondary"
+        role="button"
         :icon="['fa', 'copy']"
         size="lg"
         @click="copyUrl(url.shortUrl)"
@@ -29,7 +31,8 @@
     </div>
     <div class="col-auto">
       <font-awesome-icon
-        class="cursor-pointer text-red-500"
+        class="text-danger"
+        role="button"
         :icon="['fa', 'trash']"
         size="lg"
         @click="deleteUrl(url)"

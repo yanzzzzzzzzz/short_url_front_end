@@ -50,10 +50,18 @@
           </li>
         </ul>
         <form class="d-flex">
-          <router-link to="/login" v-if="this.$store.state.user.token === null">
-            <button class="btn btn-outline-success" type="submit">Login</button>
-          </router-link>
-          <div to="/login" v-else="this.$store.state.user.token === null">
+          <div v-if="this.$store.state.user.token === null">
+            <router-link
+              to="/login"
+              v-if="this.$store.state.user.token === null"
+              class="mr-2"
+            >
+              <button class="btn btn-outline-success" type="submit">
+                Login
+              </button>
+            </router-link>
+          </div>
+          <div to="/login" v-else>
             <button class="btn btn-outline-success" @click="logout">
               Logout
             </button>
