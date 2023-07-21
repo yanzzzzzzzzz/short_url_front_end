@@ -10,7 +10,7 @@
         <label for="password">Password:</label>
         <input type="password" id="password" v-model="password" />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit" data-cy="submit">Login</button>
     </form>
     <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
   </div>
