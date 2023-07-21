@@ -13,10 +13,16 @@
           placeholder="Enter link here"
           v-model="url"
           style="width: 400px"
+          data-cy="url"
         />
       </div>
       <div class="col-auto">
-        <button type="button" class="btn btn-primary" @click="generateUrl">
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="generateUrl"
+          data-cy="shortUrl"
+        >
           Shorten URL
         </button>
       </div>
