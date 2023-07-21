@@ -4,11 +4,21 @@
     <form @submit.prevent="login">
       <div>
         <label for="username">Username:</label>
-        <input type="text" id="username" v-model="username" />
+        <input
+          type="text"
+          id="username"
+          v-model="username"
+          data-cy="username"
+        />
       </div>
       <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" />
+        <input
+          type="password"
+          id="password"
+          v-model="password"
+          data-cy="password"
+        />
       </div>
       <button type="submit" data-cy="submit">Login</button>
     </form>
@@ -22,8 +32,8 @@ import urlService from '../service/url';
 export default {
   data() {
     return {
-      username: 'mluukkai',
-      password: 'salainen',
+      username: '',
+      password: '',
       errorMessage: '',
     };
   },
