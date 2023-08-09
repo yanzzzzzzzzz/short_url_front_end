@@ -5,28 +5,7 @@
         <h1>Free URL Shortener</h1>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Enter link here"
-          v-model="url"
-          style="width: 400px"
-          data-cy="url"
-        />
-      </div>
-      <div class="col-auto">
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="generateUrl"
-          data-cy="shortUrl"
-        >
-          Shorten URL
-        </button>
-      </div>
-    </div>
+    <UrlInputForm v-model="url" @generateUrl="generateUrl" />
     <ShowUrl :urlMap="urls" @deleteUrl="deleteUrl" />
   </div>
   <div
@@ -48,9 +27,11 @@
 <script>
 import urlService from '../service/url';
 import ShowUrl from '../components/showUrl.vue';
+import UrlInputForm from '../components/UrlInputForm.vue';
 export default {
   components: {
     ShowUrl,
+    UrlInputForm,
   },
   data() {
     return {
