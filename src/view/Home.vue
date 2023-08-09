@@ -27,7 +27,7 @@
         </button>
       </div>
     </div>
-    <showUrl :urlMap="urls" @deleteUrl="deleteUrl" />
+    <ShowUrl :urlMap="urls" @deleteUrl="deleteUrl" />
   </div>
   <div
     class="text-black"
@@ -47,10 +47,10 @@
 
 <script>
 import urlService from '../service/url';
-import showUrl from '../components/showUrl.vue';
+import ShowUrl from '../components/showUrl.vue';
 export default {
   components: {
-    showUrl,
+    ShowUrl,
   },
   data() {
     return {

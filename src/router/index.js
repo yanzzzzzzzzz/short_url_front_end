@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../view/Home.vue';
 import Login from '../view/Login.vue';
-import Navbar from '../components/navbar.vue';
+import Navbar from '../components/Navbar.vue';
 const routes = [
   {
     path: '/',
