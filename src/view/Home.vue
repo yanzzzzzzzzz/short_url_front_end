@@ -1,10 +1,6 @@
 <template>
   <div class="container pt-2" style="max-width: 650px; min-height: 300px">
-    <div class="row">
-      <div class="col">
-        <h1>Free URL Shortener</h1>
-      </div>
-    </div>
+    <UrlHeader />
     <UrlInputForm v-model="url" @generateUrl="generateUrl" />
     <ShowUrl :urlMap="urls" @deleteUrl="deleteUrl" />
   </div>
@@ -28,10 +24,12 @@
 import urlService from '../service/url';
 import ShowUrl from '../components/showUrl.vue';
 import UrlInputForm from '../components/UrlInputForm.vue';
+import UrlHeader from '../components/UrlHeader.vue';
 export default {
   components: {
     ShowUrl,
     UrlInputForm,
+    UrlHeader,
   },
   data() {
     return {
