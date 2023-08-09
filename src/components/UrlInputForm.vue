@@ -1,17 +1,15 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-auto">
+    <div class="col-auto d-flex align-items-center">
       <input
         type="text"
         class="form-control"
         placeholder="Enter link here"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        style="width: 400px"
+        style="width: 400px; margin-right: 20px"
         data-cy="url"
       />
-    </div>
-    <div class="col-auto">
       <button
         type="button"
         class="btn btn-primary"
