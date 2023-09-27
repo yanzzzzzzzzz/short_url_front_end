@@ -27,8 +27,14 @@ export default {
     };
   },
   async created() {
-    const { data: urls } = await urlService.getAllUrl();
-    this.urls = urls;
+    if (this.$store.state.user.token == null) {
+      var localStorageUrlList = this.getShortUrlList();
+      this.urls =
+        localStorageUrlList !== null ? JSON.parse(localStorageUrlList) : [];
+    } else {
+      const { data: urls } = await urlService.getAllUrl();
+      this.urls = urls;
+    }
   },
   methods: {
     async generateUrl() {
@@ -41,10 +47,22 @@ export default {
         originUrl: url,
         shortUrl: `${shortUrl}`,
       });
+      if (this.$store.state.user.token == null) {
+        this.saveShortUrlList(JSON.stringify(this.urls));
+      }
     },
     async deleteUrl(urlObj) {
       this.urls = this.urls.filter((url) => url.shortUrl !== urlObj.shortUrl);
       const response = await urlService.deleteUrl(urlObj.shortUrl);
+      if (this.$store.state.token == null) {
+        this.saveShortUrlList(JSON.stringify(this.urls));
+      }
+    },
+    saveShortUrlList(shortUrl) {
+      localStorage.setItem('shortUrl', shortUrl);
+    },
+    getShortUrlList() {
+      return localStorage.getItem('shortUrl');
     },
   },
 };
