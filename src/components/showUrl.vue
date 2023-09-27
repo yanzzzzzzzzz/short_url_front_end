@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      maxLength: 20,
+      maxLength: 50,
     };
   },
   methods: {
