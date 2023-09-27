@@ -40,19 +40,17 @@ export default {
   methods: {
     async login() {
       if (this.username && this.password) {
-        const response = await loginService.login({
+        const { data } = await loginService.login({
           username: this.username,
           password: this.password,
         });
-        if (response.token) {
-          console.log('response', response);
-          urlService.setToken(response.token);
+        if (data.token) {
+          urlService.setToken(data.token);
           this.$store.dispatch('setUser', {
-            token: response.token,
-            username: response.username,
-            name: response.name,
+            token: data.token,
+            username: data.username,
+            name: data.name,
           });
-          console.log('this.$store.state.user', this.$store.state.user);
           this.$router.push({ name: 'home' });
         }
       } else {
