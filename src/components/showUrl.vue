@@ -6,9 +6,7 @@
     style="text-align: left; height: 52px"
   >
     <div class="col-5">
-      {{
-        url.originUrl.replace(/^(https?:\/\/)?/, '').slice(0, maxLength) + '...'
-      }}
+      {{ showUrlFormatted(url.originUrl) }}
     </div>
     <div class="col-4"></div>
     <div class="col-auto">
@@ -67,6 +65,14 @@ export default {
     openRedirectUrl(shortUrl) {
       const url = `${window.location.origin}\\api\\url\\${shortUrl}`;
       window.open(url, '_blank');
+    },
+    showUrlFormatted(url) {
+      const formatUrl = url.replace(/^(https?:\/\/)?/, '');
+      if (formatUrl.length > this.maxLength) {
+        return formatUrl.slice(0, this.maxLength) + '...';
+      } else {
+        return formatUrl;
+      }
     },
   },
 };
