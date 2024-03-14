@@ -45,7 +45,7 @@ const login = async () => {
       });
       console.log('data', data);
 
-      if (data.token != null) {
+      if (data.token) {
         urlService.setToken(data.token);
         store.dispatch('setUser', {
           token: data.token,
