@@ -53,8 +53,9 @@ export default {
     };
   },
   methods: {
-    copyUrl(url) {
-      navigator.clipboard.writeText(url).then(() => {
+    copyUrl(shortUrl) {
+      const currentUrl = `${window.location.origin}\\api\\url\\${shortUrl}`;
+      navigator.clipboard.writeText(currentUrl).then(() => {
         console.log('copy success');
         alert('Success', 'copy success.');
       });
