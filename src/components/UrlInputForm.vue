@@ -10,12 +10,7 @@
         style="width: 400px; margin-right: 20px"
         data-cy="url"
       />
-      <button
-        type="button"
-        class="btn btn-primary"
-        @click="generateUrl"
-        data-cy="shortUrl"
-      >
+      <button type="button" class="btn btn-primary" @click="generateUrl" data-cy="shortUrl">
         Shorten URL
       </button>
     </div>
@@ -25,12 +20,12 @@
 export default {
   emits: ['generateUrl'],
   props: {
-    modelValue: String,
+    modelValue: String
   },
   methods: {
     async generateUrl() {
       this.$emit('generateUrl');
-    },
-  },
+    }
+  }
 };
 </script>

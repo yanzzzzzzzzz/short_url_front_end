@@ -1,9 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <router-link :to="{ name: 'home' }" class="navbar-brand"
-        >Short Url</router-link
-      >
+      <router-link :to="{ name: 'home' }" class="navbar-brand">Short Url</router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -19,20 +17,12 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <form class="d-flex">
           <div v-if="this.$store.state.user.token === null">
-            <router-link
-              to="/login"
-              v-if="this.$store.state.user.token === null"
-              class="mr-2"
-            >
-              <button class="btn btn-outline-success" type="submit">
-                Login
-              </button>
+            <router-link to="/login" v-if="this.$store.state.user.token === null" class="mr-2">
+              <button class="btn btn-outline-success" type="submit">Login</button>
             </router-link>
           </div>
           <div to="/login" v-else>
-            <button class="btn btn-outline-success" @click="logout">
-              Logout
-            </button>
+            <button class="btn btn-outline-success" @click="logout">Logout</button>
           </div>
         </form>
       </div>
@@ -47,7 +37,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('clearUser');
-    },
-  },
+    }
+  }
 };
 </script>

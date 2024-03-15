@@ -4,21 +4,11 @@
     <form @submit.prevent="login">
       <div>
         <label for="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          v-model="username"
-          data-cy="username"
-        />
+        <input type="text" id="username" v-model="username" data-cy="username" />
       </div>
       <div>
         <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          data-cy="password"
-        />
+        <input type="password" id="password" v-model="password" data-cy="password" />
       </div>
       <button type="submit" data-cy="submit">Login</button>
     </form>
@@ -41,7 +31,7 @@ const login = async () => {
     try {
       const { data } = await loginService.login({
         username: username.value,
-        password: password.value,
+        password: password.value
       });
       console.log('data', data);
 
@@ -50,7 +40,7 @@ const login = async () => {
         store.dispatch('setUser', {
           token: data.token,
           username: data.username,
-          name: data.name,
+          name: data.name
         });
 
         router.push({ name: 'home' });

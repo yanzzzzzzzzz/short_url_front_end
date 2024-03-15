@@ -44,12 +44,12 @@ export default {
   props: {
     urlMap: {
       required: true,
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {
-      maxLength: 50,
+      maxLength: 50
     };
   },
   methods: {
@@ -74,8 +74,8 @@ export default {
       } else {
         return formatUrl;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style>

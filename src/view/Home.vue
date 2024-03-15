@@ -23,10 +23,7 @@ const addUrl = (url: string, shortUrl: string): void => {
   urls.value = [...urls.value, { originUrl: url, shortUrl }];
 };
 
-const deleteUrl = async (urlObj: {
-  originUrl: string;
-  shortUrl: string;
-}): Promise<void> => {
+const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promise<void> => {
   urls.value = urls.value.filter((u) => u.shortUrl !== urlObj.shortUrl);
   const response = await urlService.deleteUrl(urlObj.shortUrl);
 };
@@ -43,7 +40,7 @@ onMounted(async () => {
 
     urls.value = data.map((item) => ({
       originUrl: item.originUrl,
-      shortUrl: item.shortUrl,
+      shortUrl: item.shortUrl
     }));
   }
 });
