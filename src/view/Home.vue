@@ -43,17 +43,22 @@ onMounted(async () => {
     store.dispatch('setUser', JSON.parse(localStorage.getItem('loginInfo')));
   }
 
-  if (store.state.user) {
-    console.log('store.state.user', store.state.user);
-
-    LoginSuccessNotify(store.state.user.username);
-    const { data } = await urlService.getAllUrl();
-    console.log('data', data);
-
-    urls.value = data.map((item) => ({
-      originUrl: item.originUrl,
-      shortUrl: item.shortUrl
-    }));
+  if (store.state.user.token !== null) {
+    try {
+      const { data } = await urlService.getAllUrl();
+      urls.value = data.map((item) => ({
+        originUrl: item.originUrl,
+        shortUrl: item.shortUrl
+      }));
+      LoginSuccessNotify(store.state.user.username);
+    } catch (error) {
+      if (error.response.status === 401) {
+        TokenExpireNotify();
+        localStorage.removeItem('loginInfo');
+      } else {
+        OtherErrorNotify(error.response.data.error);
+      }
+    }
   }
 });
 
@@ -65,6 +70,24 @@ const LoginSuccessNotify = (username) => {
   toast(`Hello! ${username}!`, {
     theme: 'auto',
     type: 'success',
+    position: 'bottom-right',
+    autoClose: 2000,
+    dangerouslyHTMLString: true
+  });
+};
+const TokenExpireNotify = () => {
+  toast(`Token expired! please refresh page and login!`, {
+    theme: 'auto',
+    type: 'error',
+    position: 'bottom-right',
+    autoClose: 2000,
+    dangerouslyHTMLString: true
+  });
+};
+const OtherErrorNotify = (errorMessage) => {
+  toast(`Error ${errorMessage}`, {
+    theme: 'auto',
+    type: 'error',
     position: 'bottom-right',
     autoClose: 2000,
     dangerouslyHTMLString: true
