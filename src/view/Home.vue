@@ -23,6 +23,7 @@ const urls = ref<Array<{ originUrl: string; shortUrl: string }>>([]);
 
 const addUrl = (url: string, shortUrl: string): void => {
   urls.value = [...urls.value, { originUrl: url, shortUrl }];
+  AddUrlSuccessNotify();
 };
 
 const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promise<void> => {
@@ -62,6 +63,15 @@ const getShortUrlList = (): string | null => {
 
 const LoginSuccessNotify = (username) => {
   toast(`Hello! ${username}!`, {
+    theme: 'auto',
+    type: 'success',
+    position: 'bottom-right',
+    autoClose: 2000,
+    dangerouslyHTMLString: true
+  });
+};
+const AddUrlSuccessNotify = () => {
+  toast('Add url success', {
     theme: 'auto',
     type: 'default',
     position: 'bottom-right',
