@@ -36,10 +36,18 @@ const generateUrl = async (): Promise<void> => {
 };
 
 onMounted(async () => {
-  console.log('on mounted', store.state.user.token);
-  if (store.state.user.token || localStorage.getItem('token')) {
+  if (localStorage.getItem('loginInfo')) {
+    console.log('localStorage.getItem', localStorage.getItem('loginInfo'));
+
+    store.dispatch('setUser', JSON.parse(localStorage.getItem('loginInfo')));
+  }
+
+  if (store.state.user) {
+    console.log('store.state.user', store.state.user);
+
     LoginSuccessNotify(store.state.user.username);
     const { data } = await urlService.getAllUrl();
+    console.log('data', data);
 
     urls.value = data.map((item) => ({
       originUrl: item.originUrl,

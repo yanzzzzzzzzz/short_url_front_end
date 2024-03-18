@@ -36,13 +36,13 @@ const login = async () => {
       console.log('data', data);
 
       if (data.token) {
-        urlService.setToken(data.token);
-        store.dispatch('setUser', {
+        const loginInfo = {
           token: data.token,
           username: data.username,
           name: data.name
-        });
-
+        };
+        store.dispatch('setUser', loginInfo);
+        localStorage.setItem('loginInfo', JSON.stringify(loginInfo));
         router.push({ name: 'home' });
       }
     } catch (error) {
