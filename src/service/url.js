@@ -1,21 +1,16 @@
 import axios from 'axios';
+import store from '../store';
 
 const API_BASE_URL = '/api/url';
 
-let token = null;
-
-const setToken = (newToken) => {
-  token = `Bearer ${newToken}`;
-};
-
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL
 });
 
 apiClient.interceptors.request.use(
   (config) => {
-    if (token) {
-      config.headers.Authorization = token;
+    if (store.state.user.token) {
+      config.headers.Authorization = `Bearer ${store.state.user.token}`;
     }
     return config;
   },
@@ -42,6 +37,5 @@ const deleteUrl = async (url) => {
 export default {
   createShortUrl,
   getAllUrl,
-  setToken,
-  deleteUrl,
+  deleteUrl
 };
