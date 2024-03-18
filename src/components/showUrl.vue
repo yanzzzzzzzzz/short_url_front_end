@@ -38,43 +38,41 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  emits: ['deleteUrl'],
-  props: {
-    urlMap: {
-      required: true,
-      type: Object
-    }
-  },
-  data() {
-    return {
-      maxLength: 50
-    };
-  },
-  methods: {
-    copyUrl(shortUrl) {
-      const currentUrl = `${window.location.origin}\\api\\url\\${shortUrl}`;
-      navigator.clipboard.writeText(currentUrl).then(() => {
-        console.log('copy success');
-        alert('Success', 'copy success.');
-      });
-    },
-    deleteUrl(urlObj) {
-      this.$emit('deleteUrl', urlObj);
-    },
-    openRedirectUrl(shortUrl) {
-      const url = `${window.location.origin}\\api\\url\\${shortUrl}`;
-      window.open(url, '_blank');
-    },
-    showUrlFormatted(url) {
-      const formatUrl = url.replace(/^(https?:\/\/)?/, '');
-      if (formatUrl.length > this.maxLength) {
-        return formatUrl.slice(0, this.maxLength) + '...';
-      } else {
-        return formatUrl;
-      }
-    }
+<script setup lang="ts">
+import { ref, defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+  urlMap: {
+    required: true,
+    type: Object
+  }
+});
+const emits = defineEmits(['deleteUrl']);
+const maxLength = ref(50);
+
+const copyUrl = (shortUrl) => {
+  const currentUrl = `${window.location.origin}/api/url/${shortUrl}`;
+  navigator.clipboard.writeText(currentUrl).then(() => {
+    console.log('copy success');
+    alert('Success', 'copy success.');
+  });
+};
+
+const deleteUrl = (urlObj) => {
+  emits('deleteUrl', urlObj);
+};
+
+const openRedirectUrl = (shortUrl) => {
+  const url = `${window.location.origin}/api/url/${shortUrl}`;
+  window.open(url, '_blank');
+};
+
+const showUrlFormatted = (url) => {
+  const formatUrl = url.replace(/^(https?:\/\/)?/, '');
+  if (formatUrl.length > maxLength.value) {
+    return formatUrl.slice(0, maxLength.value) + '...';
+  } else {
+    return formatUrl;
   }
 };
 </script>
