@@ -40,6 +40,8 @@
 </template>
 <script setup lang="ts">
 import { ref, defineProps, defineEmits } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const props = defineProps({
   urlMap: {
@@ -53,8 +55,7 @@ const maxLength = ref(50);
 const copyUrl = (shortUrl) => {
   const currentUrl = `${window.location.origin}/api/url/${shortUrl}`;
   navigator.clipboard.writeText(currentUrl).then(() => {
-    console.log('copy success');
-    alert('Success', 'copy success.');
+    CopySuccessNotify();
   });
 };
 
@@ -74,6 +75,15 @@ const showUrlFormatted = (url) => {
   } else {
     return formatUrl;
   }
+};
+const CopySuccessNotify = () => {
+  toast(`Copy success`, {
+    theme: 'auto',
+    type: 'default',
+    position: 'bottom-right',
+    autoClose: 2000,
+    dangerouslyHTMLString: true
+  });
 };
 </script>
 <style>
