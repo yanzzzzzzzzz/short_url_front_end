@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import loginService from '../service/login';
-import urlService from '../service/url';
 import { ref } from 'vue';
 import router from '../router';
 import store from '../store';
