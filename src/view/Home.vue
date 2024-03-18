@@ -15,6 +15,8 @@ import UrlInputForm from '../components/UrlInputForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
 import store from '../store';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const url = ref('');
 const urls = ref<Array<{ originUrl: string; shortUrl: string }>>([]);
@@ -36,6 +38,7 @@ const generateUrl = async (): Promise<void> => {
 onMounted(async () => {
   console.log('on mounted', store.state.user.token);
   if (store.state.user.token || localStorage.getItem('token')) {
+    LoginSuccessNotify(store.state.user.username);
     const { data } = await urlService.getAllUrl();
 
     urls.value = data.map((item) => ({
@@ -47,5 +50,15 @@ onMounted(async () => {
 
 const getShortUrlList = (): string | null => {
   return localStorage.getItem('shortUrl');
+};
+
+const LoginSuccessNotify = (username) => {
+  toast(`Hello! ${username}!`, {
+    theme: 'auto',
+    type: 'default',
+    position: 'bottom-right',
+    autoClose: 2000,
+    dangerouslyHTMLString: true
+  });
 };
 </script>
