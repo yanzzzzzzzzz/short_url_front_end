@@ -1,36 +1,30 @@
 import Vuex from 'vuex';
+import { defineStore } from 'pinia';
 
-const store = new Vuex.Store({
-  state: {
+export const useStore = defineStore({
+  id: 'store',
+  state: () => ({
     user: {
       token: null,
       username: '',
-      name: '',
+      name: ''
+    }
+  }),
+  actions: {
+    setUser(user) {
+      this.user = user;
     },
-  },
-  mutations: {
-    SET_USER(state, user) {
-      state.user = user;
-    },
-    CLEAR_USER(state) {
-      state.user = {
+    clearUser() {
+      this.user = {
         token: null,
         username: '',
-        name: '',
+        name: ''
       };
-    },
-  },
-  actions: {
-    setUser({ commit }, user) {
-      commit('SET_USER', user);
-    },
-    clearUser({ commit }, user) {
-      commit('CLEAR_USER', user);
-    },
+    }
   },
   getters: {
-    getUser: (state) => state.user,
-  },
+    getUser() {
+      return this.user;
+    }
+  }
 });
-
-export default store;

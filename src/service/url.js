@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '../store';
+import { useStore } from '../store';
 
 const API_BASE_URL = '/api/url';
 

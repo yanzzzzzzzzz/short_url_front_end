@@ -7,12 +7,9 @@ import 'bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCopy, faTrash, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import store from './store';
+import { createPinia } from 'pinia';
+const pinia = createPinia();
 // import store from './store';
 
 library.add(faCopy, faTrash, faLink);
-createApp(App)
-  .use(store)
-  .component('font-awesome-icon', FontAwesomeIcon)
-  .use(router)
-  .mount('#app');
+createApp(App).use(pinia).component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app');

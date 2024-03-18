@@ -14,7 +14,7 @@ import ShowUrl from '../components/showUrl.vue';
 import UrlInputForm from '../components/UrlInputForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
-import store from '../store';
+import { useStore } from '../store';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 

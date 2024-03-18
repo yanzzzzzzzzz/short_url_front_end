@@ -20,7 +20,7 @@
 import loginService from '../service/login';
 import { ref } from 'vue';
 import router from '../router';
-import store from '../store';
+import { useStore } from '../store';
 const username = ref('');
 const password = ref('');
 const errorMessage = ref('');
