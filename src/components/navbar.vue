@@ -34,9 +34,12 @@
 </template>
 <script setup lang="ts">
 import { useUserStore } from '../stores/UserStore';
+import { useUrlStore } from '../stores/UrlStore';
 const userStore = useUserStore();
+const urlStore = useUrlStore();
 const logout = () => {
   userStore.clearUser();
+  urlStore.clearUrl();
   localStorage.removeItem('loginInfo');
 };
 </script>

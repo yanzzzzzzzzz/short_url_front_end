@@ -2,7 +2,7 @@
   <div class="container pt-2" style="max-width: 650px; min-height: 300px">
     <UrlHeader />
     <UrlInputForm v-model="url" @generateUrl="generateUrl" />
-    <ShowUrl :urlMap="urls" @deleteUrl="deleteUrl" />
+    <ShowUrl :urlMap="UrlStore.urls" @deleteUrl="deleteUrl" />
   </div>
   <UrlIntroduction />
 </template>
@@ -15,20 +15,21 @@ import UrlInputForm from '../components/UrlInputForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
 import { useUserStore } from '../stores/UserStore';
+import { useUrlStore } from '../stores/UrlStore';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 const userStore = useUserStore();
+const UrlStore = useUrlStore();
 const url = ref('');
-const urls = ref<Array<{ originUrl: string; shortUrl: string }>>([]);
 
 const addUrl = (url: string, shortUrl: string): void => {
-  urls.value = [...urls.value, { originUrl: url, shortUrl }];
+  UrlStore.addUrl({ originUrl: url, shortUrl });
   AddUrlSuccessNotify();
 };
 
 const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promise<void> => {
-  urls.value = urls.value.filter((u) => u.shortUrl !== urlObj.shortUrl);
+  UrlStore.deleteUrl(urlObj);
   const response = await urlService.deleteUrl(urlObj.shortUrl);
 };
 
@@ -46,10 +47,12 @@ onMounted(async () => {
   if (userStore.user.token !== null) {
     try {
       const { data } = await urlService.getAllUrl();
-      urls.value = data.map((item) => ({
-        originUrl: item.originUrl,
-        shortUrl: item.shortUrl
-      }));
+      UrlStore.setUrl(
+        data.map((item) => ({
+          originUrl: item.originUrl,
+          shortUrl: item.shortUrl
+        }))
+      );
       LoginSuccessNotify(userStore.user.username);
     } catch (error) {
       if (error.response.status === 401) {
