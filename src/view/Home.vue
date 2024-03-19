@@ -19,13 +19,19 @@ import { useUrlStore } from '../stores/UrlStore.ts';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
+import {
+  showLoginSuccessNotification,
+  showTokenExpireNotification,
+  showErrorNotification,
+  showAddUrlSuccessNotification
+} from '../utils/notifications.ts';
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
 const url = ref('');
 
 const addUrl = (shortUrlModel: ShortUrlModel): void => {
   UrlStore.addUrl(shortUrlModel);
-  AddUrlSuccessNotify();
+  showAddUrlSuccessNotification();
 };
 
 const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promise<void> => {
@@ -58,56 +64,15 @@ onMounted(async () => {
           shortUrl: item.shortUrl
         }))
       );
-      LoginSuccessNotify(userStore.user.username);
+      showLoginSuccessNotification(userStore.user.username);
     } catch (error) {
       if (error.response.status === 401) {
-        TokenExpireNotify();
+        showTokenExpireNotification();
         localStorage.removeItem('loginInfo');
       } else {
-        OtherErrorNotify(error.response.data.error);
+        showErrorNotification(error.response.data.error);
       }
     }
   }
 });
-
-const LoginSuccessNotify = (username: string) => {
-  toast(`Hello! ${username}!`, {
-    theme: 'auto',
-    type: 'success',
-    position: 'bottom-right',
-    autoClose: 2000,
-    dangerouslyHTMLString: true,
-    pauseOnFocusLoss: false
-  });
-};
-const TokenExpireNotify = () => {
-  toast(`Token expired! please refresh page and login!`, {
-    theme: 'auto',
-    type: 'error',
-    position: 'bottom-right',
-    autoClose: 2000,
-    dangerouslyHTMLString: true,
-    pauseOnFocusLoss: false
-  });
-};
-const OtherErrorNotify = (errorMessage: string) => {
-  toast(`Error ${errorMessage}`, {
-    theme: 'auto',
-    type: 'error',
-    position: 'bottom-right',
-    autoClose: 2000,
-    dangerouslyHTMLString: true,
-    pauseOnFocusLoss: false
-  });
-};
-const AddUrlSuccessNotify = () => {
-  toast('Add url success', {
-    theme: 'auto',
-    type: 'default',
-    position: 'bottom-right',
-    autoClose: 2000,
-    dangerouslyHTMLString: true,
-    pauseOnFocusLoss: false
-  });
-};
 </script>

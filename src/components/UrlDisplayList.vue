@@ -43,6 +43,7 @@ import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
+import { showCopySuccessNotification } from '../utils/notifications';
 const props = defineProps({
   urlMap: {
     required: true,
@@ -55,7 +56,7 @@ const maxLength = ref(50);
 const copyUrl = (shortUrl: string) => {
   const currentUrl = `${window.location.origin}/api/url/${shortUrl}`;
   navigator.clipboard.writeText(currentUrl).then(() => {
-    CopySuccessNotify();
+    showCopySuccessNotification();
   });
 };
 
@@ -75,16 +76,6 @@ const showUrlFormatted = (url: string) => {
   } else {
     return formatUrl;
   }
-};
-const CopySuccessNotify = () => {
-  toast(`Copy success`, {
-    theme: 'auto',
-    type: 'default',
-    position: 'bottom-right',
-    autoClose: 2000,
-    dangerouslyHTMLString: true,
-    pauseOnFocusLoss: false
-  });
 };
 </script>
 <style>
