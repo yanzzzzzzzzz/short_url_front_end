@@ -82,7 +82,8 @@ const CopySuccessNotify = () => {
     type: 'default',
     position: 'bottom-right',
     autoClose: 2000,
-    dangerouslyHTMLString: true
+    dangerouslyHTMLString: true,
+    pauseOnFocusLoss: false
   });
 };
 </script>

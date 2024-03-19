@@ -76,7 +76,8 @@ const LoginSuccessNotify = (username: string) => {
     type: 'success',
     position: 'bottom-right',
     autoClose: 2000,
-    dangerouslyHTMLString: true
+    dangerouslyHTMLString: true,
+    pauseOnFocusLoss: false
   });
 };
 const TokenExpireNotify = () => {
@@ -85,7 +86,8 @@ const TokenExpireNotify = () => {
     type: 'error',
     position: 'bottom-right',
     autoClose: 2000,
-    dangerouslyHTMLString: true
+    dangerouslyHTMLString: true,
+    pauseOnFocusLoss: false
   });
 };
 const OtherErrorNotify = (errorMessage: string) => {
@@ -94,7 +96,8 @@ const OtherErrorNotify = (errorMessage: string) => {
     type: 'error',
     position: 'bottom-right',
     autoClose: 2000,
-    dangerouslyHTMLString: true
+    dangerouslyHTMLString: true,
+    pauseOnFocusLoss: false
   });
 };
 const AddUrlSuccessNotify = () => {
@@ -103,7 +106,8 @@ const AddUrlSuccessNotify = () => {
     type: 'default',
     position: 'bottom-right',
     autoClose: 2000,
-    dangerouslyHTMLString: true
+    dangerouslyHTMLString: true,
+    pauseOnFocusLoss: false
   });
 };
 </script>
