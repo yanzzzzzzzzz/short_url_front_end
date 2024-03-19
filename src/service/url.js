@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useStore } from '../store';
+import { useUserStore } from '../stores/UserStore';
 
 const API_BASE_URL = '/api/url';
 
@@ -9,8 +9,9 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    if (store.state.user.token) {
-      config.headers.Authorization = `Bearer ${store.state.user.token}`;
+    const userStore = useUserStore();
+    if (userStore.user.token) {
+      config.headers.Authorization = `Bearer ${userStore.user.token}`;
     }
     return config;
   },

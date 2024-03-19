@@ -20,7 +20,9 @@
 import loginService from '../service/login';
 import { ref } from 'vue';
 import router from '../router';
-import { useStore } from '../store';
+import { useUserStore } from '../stores/UserStore';
+
+const userStore = useUserStore();
 const username = ref('');
 const password = ref('');
 const errorMessage = ref('');
@@ -40,7 +42,7 @@ const login = async () => {
           username: data.username,
           name: data.name
         };
-        store.dispatch('setUser', loginInfo);
+        userStore.setUser(loginInfo);
         localStorage.setItem('loginInfo', JSON.stringify(loginInfo));
         router.push({ name: 'home' });
       }

@@ -9,7 +9,6 @@ import { faCopy, faTrash, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { createPinia } from 'pinia';
 const pinia = createPinia();
-// import store from './store';
 
 library.add(faCopy, faTrash, faLink);
 createApp(App).use(pinia).component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app');

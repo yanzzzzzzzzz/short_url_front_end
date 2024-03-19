@@ -1,8 +1,6 @@
-import Vuex from 'vuex';
 import { defineStore } from 'pinia';
 
-export const useStore = defineStore({
-  id: 'store',
+export const useUserStore = defineStore('UserStore', {
   state: () => ({
     user: {
       token: null,

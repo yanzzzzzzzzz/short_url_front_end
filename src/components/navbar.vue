@@ -16,8 +16,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <form class="d-flex">
-          <div v-if="this.$store.state.user.token === null">
-            <router-link to="/login" v-if="this.$store.state.user.token === null" class="mr-2">
+          <div v-if="userStore.user.token === null">
+            <router-link to="/login" v-if="userStore.user.token === null" class="mr-2">
               <button class="btn btn-outline-success" type="submit">Login</button>
             </router-link>
           </div>
@@ -32,13 +32,11 @@
     <router-view />
   </main>
 </template>
-<script>
-export default {
-  methods: {
-    logout() {
-      this.$store.dispatch('clearUser');
-      localStorage.removeItem('loginInfo');
-    }
-  }
+<script setup lang="ts">
+import { useUserStore } from '../stores/UserStore';
+const userStore = useUserStore();
+const logout = () => {
+  userStore.clearUser();
+  localStorage.removeItem('loginInfo');
 };
 </script>

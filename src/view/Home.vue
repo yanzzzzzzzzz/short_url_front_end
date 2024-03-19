@@ -14,10 +14,11 @@ import ShowUrl from '../components/showUrl.vue';
 import UrlInputForm from '../components/UrlInputForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
-import { useStore } from '../store';
+import { useUserStore } from '../stores/UserStore';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+const userStore = useUserStore();
 const url = ref('');
 const urls = ref<Array<{ originUrl: string; shortUrl: string }>>([]);
 
@@ -39,18 +40,17 @@ const generateUrl = async (): Promise<void> => {
 onMounted(async () => {
   if (localStorage.getItem('loginInfo')) {
     console.log('localStorage.getItem', localStorage.getItem('loginInfo'));
-
-    store.dispatch('setUser', JSON.parse(localStorage.getItem('loginInfo')));
+    userStore.setUser(JSON.parse(localStorage.getItem('loginInfo')));
   }
 
-  if (store.state.user.token !== null) {
+  if (userStore.user.token !== null) {
     try {
       const { data } = await urlService.getAllUrl();
       urls.value = data.map((item) => ({
         originUrl: item.originUrl,
         shortUrl: item.shortUrl
       }));
-      LoginSuccessNotify(store.state.user.username);
+      LoginSuccessNotify(userStore.user.username);
     } catch (error) {
       if (error.response.status === 401) {
         TokenExpireNotify();
@@ -61,10 +61,6 @@ onMounted(async () => {
     }
   }
 });
-
-const getShortUrlList = (): string | null => {
-  return localStorage.getItem('shortUrl');
-};
 
 const LoginSuccessNotify = (username) => {
   toast(`Hello! ${username}!`, {
