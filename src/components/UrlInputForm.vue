@@ -5,8 +5,7 @@
         type="text"
         class="form-control"
         placeholder="Enter link here"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
+        v-model="model"
         style="width: 400px; margin-right: 20px"
         data-cy="url"
       />
@@ -16,16 +15,10 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  emits: ['generateUrl'],
-  props: {
-    modelValue: String
-  },
-  methods: {
-    async generateUrl() {
-      this.$emit('generateUrl');
-    }
-  }
+<script setup lang="ts">
+const model = defineModel();
+const emits = defineEmits(['generateUrl']);
+const generateUrl = () => {
+  emits('generateUrl');
 };
 </script>
