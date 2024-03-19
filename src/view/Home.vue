@@ -16,7 +16,6 @@ import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
 import { useUserStore } from '../stores/UserStore';
 import { useUrlStore } from '../stores/UrlStore.ts';
-import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import {

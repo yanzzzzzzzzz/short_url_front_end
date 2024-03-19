@@ -40,7 +40,6 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import { showCopySuccessNotification } from '../utils/notifications';
