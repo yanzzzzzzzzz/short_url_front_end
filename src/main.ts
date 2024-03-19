@@ -11,4 +11,8 @@ import { createPinia } from 'pinia';
 const pinia = createPinia();
 
 library.add(faCopy, faTrash, faLink);
-createApp(App).use(pinia).component('font-awesome-icon', FontAwesomeIcon).use(router).mount('#app');
+const app = createApp(App);
+app.use(createPinia());
+app.use(router);
+app.component('font-awesome-icon', FontAwesomeIcon);
+app.mount('#app');
