@@ -2,7 +2,7 @@
   <div class="container pt-2" style="max-width: 650px; min-height: 300px">
     <UrlHeader />
     <UrlInputForm v-model="url" @generateUrl="generateUrl" />
-    <ShowUrl :urlMap="UrlStore.urls" @deleteUrl="deleteUrl" />
+    <UrlDisplayList :urlMap="UrlStore.urls" @deleteUrl="deleteUrl" />
   </div>
   <UrlIntroduction />
 </template>
@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import urlService from '../service/url';
-import ShowUrl from '../components/showUrl.vue';
+import UrlDisplayList from '../components/UrlDisplayList.vue';
 import UrlInputForm from '../components/UrlInputForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
