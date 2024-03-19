@@ -1,7 +1,7 @@
 <template>
   <div class="container pt-2" style="max-width: 650px; min-height: 300px">
     <UrlHeader />
-    <UrlInputForm v-model="url" @generateUrl="generateUrl" />
+    <UrlShortenForm v-model="url" @generateUrl="generateUrl" />
     <UrlDisplayList :urlMap="UrlStore.urls" @deleteUrl="deleteUrl" />
   </div>
   <UrlIntroduction />
@@ -11,7 +11,7 @@
 import { ref, onMounted } from 'vue';
 import urlService from '../service/url';
 import UrlDisplayList from '../components/UrlDisplayList.vue';
-import UrlInputForm from '../components/UrlInputForm.vue';
+import UrlShortenForm from '../components/UrlShortenForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
 import { useUserStore } from '../stores/UserStore';
@@ -75,3 +75,4 @@ onMounted(async () => {
   }
 });
 </script>
+../components/UrlShortenForm.vue/index.ts
