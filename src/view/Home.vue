@@ -15,16 +15,16 @@ import UrlInputForm from '../components/UrlInputForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
 import { useUserStore } from '../stores/UserStore';
-import { useUrlStore } from '../stores/UrlStore';
+import { useUrlStore } from '../stores/UrlStore.ts';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-
+import { ShortUrlModel } from '../models/UrlModel';
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
 const url = ref('');
 
-const addUrl = (url: string, shortUrl: string): void => {
-  UrlStore.addUrl({ originUrl: url, shortUrl });
+const addUrl = (shortUrlModel: ShortUrlModel): void => {
+  UrlStore.addUrl(shortUrlModel);
   AddUrlSuccessNotify();
 };
 
@@ -35,18 +35,23 @@ const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promi
 
 const generateUrl = async (): Promise<void> => {
   const data = await urlService.createShortUrl(url.value);
-  addUrl(url.value, data.shortUrl);
+  const model: ShortUrlModel = {
+    shortUrl: data,
+    originUrl: url.value
+  };
+  addUrl(model);
+  url.value = '';
 };
 
 onMounted(async () => {
   if (localStorage.getItem('loginInfo')) {
     console.log('localStorage.getItem', localStorage.getItem('loginInfo'));
-    userStore.setUser(JSON.parse(localStorage.getItem('loginInfo')));
+    userStore.setUser(JSON.parse(localStorage.getItem('loginInfo') || ''));
   }
 
-  if (userStore.user.token !== null) {
+  if (userStore.user.token !== '') {
     try {
-      const { data } = await urlService.getAllUrl();
+      const data = await urlService.getAllUrl();
       UrlStore.setUrl(
         data.map((item) => ({
           originUrl: item.originUrl,
@@ -65,7 +70,7 @@ onMounted(async () => {
   }
 });
 
-const LoginSuccessNotify = (username) => {
+const LoginSuccessNotify = (username: string) => {
   toast(`Hello! ${username}!`, {
     theme: 'auto',
     type: 'success',
@@ -83,7 +88,7 @@ const TokenExpireNotify = () => {
     dangerouslyHTMLString: true
   });
 };
-const OtherErrorNotify = (errorMessage) => {
+const OtherErrorNotify = (errorMessage: string) => {
   toast(`Error ${errorMessage}`, {
     theme: 'auto',
     type: 'error',

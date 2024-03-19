@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useUserStore } from '../stores/UserStore';
-
+import { ShortUrlWithIdModel } from '../models/UrlModel';
 const API_BASE_URL = '/api/url';
 
 const apiClient = axios.create({
@@ -20,14 +20,14 @@ apiClient.interceptors.request.use(
   }
 );
 
-const createShortUrl = async (url) => {
+const createShortUrl = async (url: string): Promise<string> => {
   const response = await apiClient.post('/', { url });
   return response.data;
 };
 
-const getAllUrl = async () => {
+const getAllUrl = async (): Promise<Array<ShortUrlWithIdModel>> => {
   const response = await apiClient.get('/');
-  return response;
+  return response.data;
 };
 
 const deleteUrl = async (url) => {

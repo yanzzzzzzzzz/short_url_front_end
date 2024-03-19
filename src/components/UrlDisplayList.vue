@@ -42,7 +42,7 @@
 import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-
+import { ShortUrlModel } from '../models/UrlModel';
 const props = defineProps({
   urlMap: {
     required: true,
@@ -52,23 +52,23 @@ const props = defineProps({
 const emits = defineEmits(['deleteUrl']);
 const maxLength = ref(50);
 
-const copyUrl = (shortUrl) => {
+const copyUrl = (shortUrl: string) => {
   const currentUrl = `${window.location.origin}/api/url/${shortUrl}`;
   navigator.clipboard.writeText(currentUrl).then(() => {
     CopySuccessNotify();
   });
 };
 
-const deleteUrl = (urlObj) => {
+const deleteUrl = (urlObj: ShortUrlModel) => {
   emits('deleteUrl', urlObj);
 };
 
-const openRedirectUrl = (shortUrl) => {
+const openRedirectUrl = (shortUrl: string) => {
   const url = `${window.location.origin}/api/url/${shortUrl}`;
   window.open(url, '_blank');
 };
 
-const showUrlFormatted = (url) => {
+const showUrlFormatted = (url: string) => {
   const formatUrl = url.replace(/^(https?:\/\/)?/, '');
   if (formatUrl.length > maxLength.value) {
     return formatUrl.slice(0, maxLength.value) + '...';

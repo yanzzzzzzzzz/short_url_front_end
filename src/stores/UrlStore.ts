@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia';
-
+import { ShortUrlModel } from '../models/UrlModel';
 export const useUrlStore = defineStore('UrlStore', {
-  state: () => ({
+  state: (): { urls: Array<ShortUrlModel> } => ({
     urls: []
   }),
   actions: {
-    setUrl(urlList) {
+    setUrl(urlList: Array<ShortUrlModel>) {
       this.urls = urlList;
     },
-    addUrl(urlObject) {
+    addUrl(urlObject: ShortUrlModel) {
       this.urls.push(urlObject);
     },
-    deleteUrl(urlObject) {
+    deleteUrl(urlObject: ShortUrlModel) {
       this.urls = this.urls.filter((u) => u.shortUrl !== urlObject.shortUrl);
     },
     clearUrl() {
@@ -19,7 +19,7 @@ export const useUrlStore = defineStore('UrlStore', {
     }
   },
   getters: {
-    getUrls() {
+    getUrls(): Array<ShortUrlModel> {
       return this.urls;
     }
   }

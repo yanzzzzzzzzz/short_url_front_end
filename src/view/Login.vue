@@ -21,7 +21,7 @@ import loginService from '../service/login';
 import { ref } from 'vue';
 import router from '../router';
 import { useUserStore } from '../stores/UserStore';
-
+import { UserModel } from '../models/UserModel';
 const userStore = useUserStore();
 const username = ref('');
 const password = ref('');
@@ -34,16 +34,15 @@ const login = async () => {
         username: username.value,
         password: password.value
       });
-      console.log('data', data);
 
       if (data.token) {
-        const loginInfo = {
+        const userLoginInfo: UserModel = {
           token: data.token,
           username: data.username,
           name: data.name
         };
-        userStore.setUser(loginInfo);
-        localStorage.setItem('loginInfo', JSON.stringify(loginInfo));
+        userStore.setUser(userLoginInfo);
+        localStorage.setItem('loginInfo', JSON.stringify(userLoginInfo));
         router.push({ name: 'home' });
       }
     } catch (error) {

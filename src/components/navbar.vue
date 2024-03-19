@@ -16,12 +16,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <form class="d-flex">
-          <div v-if="userStore.user.token === null">
-            <router-link to="/login" v-if="userStore.user.token === null" class="mr-2">
+          <div v-if="userStore.user.token === ''">
+            <router-link to="/login" class="mr-2">
               <button class="btn btn-outline-success" type="submit">Login</button>
             </router-link>
           </div>
-          <div to="/login" v-else>
+          <div v-else to="/login">
             <button class="btn btn-outline-success" @click="logout">Logout</button>
           </div>
         </form>
