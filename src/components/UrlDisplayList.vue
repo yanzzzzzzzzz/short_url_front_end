@@ -43,7 +43,7 @@ import { ref } from 'vue';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import { showCopySuccessNotification } from '../utils/notifications';
-const props = defineProps({
+defineProps({
   urlMap: {
     required: true,
     type: Object
