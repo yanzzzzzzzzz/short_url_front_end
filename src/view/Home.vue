@@ -68,6 +68,11 @@ onMounted(async () => {
       if (error.response.status === 401) {
         showTokenExpireNotification();
         localStorage.removeItem('loginInfo');
+        userStore.setUser({
+          token: '',
+          username: '',
+          name: ''
+        });
       } else {
         showErrorNotification(error.response.data.error);
       }
