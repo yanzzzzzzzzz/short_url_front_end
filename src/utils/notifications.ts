@@ -9,7 +9,7 @@ export const showAddUrlSuccessNotification = () => {
 };
 
 export const showTokenExpireNotification = () => {
-  showNotification('Token expired! Please refresh page and login!', 'error');
+  showNotification('Token expired! Please re-login!', 'error');
 };
 
 export const showLoginSuccessNotification = (username: string) => {
