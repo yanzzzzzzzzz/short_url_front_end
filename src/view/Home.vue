@@ -80,4 +80,3 @@ onMounted(async () => {
   }
 });
 </script>
-../components/UrlShortenForm.vue/index.ts
