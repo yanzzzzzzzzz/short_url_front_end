@@ -39,12 +39,9 @@ const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promi
 };
 
 const generateUrl = async (): Promise<void> => {
-  const data = await urlService.createShortUrl(url.value);
-  const model: ShortUrlModel = {
-    shortUrl: data,
-    originUrl: url.value
-  };
-  addUrl(model);
+  const shortUrlModel = await urlService.createShortUrl(url.value);
+
+  addUrl(shortUrlModel);
   url.value = '';
 };
 
