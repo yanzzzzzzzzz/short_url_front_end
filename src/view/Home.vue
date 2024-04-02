@@ -15,7 +15,7 @@ import UrlShortenForm from '../components/UrlShortenForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
 import { useUserStore } from '../stores/UserStore';
-import { useUrlStore } from '../stores/UrlStore.ts';
+import { useUrlStore } from '../stores/UrlStore';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import {
@@ -23,7 +23,7 @@ import {
   showTokenExpireNotification,
   showErrorNotification,
   showAddUrlSuccessNotification
-} from '../utils/notifications.ts';
+} from '../utils/notifications';
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
 const url = ref('');
