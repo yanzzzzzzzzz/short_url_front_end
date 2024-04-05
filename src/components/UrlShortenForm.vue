@@ -1,16 +1,17 @@
 <template>
   <div class="shortUrlForm">
     <p>Shorten a long URL</p>
-    <input type="text" placeholder="Enter long link here" v-model="model" />
+    <input type="text" placeholder="Enter long link here" v-model="url" />
     <p>Customize your link(optional)</p>
-    <input type="text" placeholder="Enter alias" />
+    <input type="text" placeholder="Enter alias" v-model="customShortUrl"/>
     <button type="button" class="btn btn-primary" @click="generateUrl" data-cy="shortUrl">
       Shorten URL
     </button>
   </div>
 </template>
 <script setup lang="ts">
-const model = defineModel();
+const url = defineModel('url');
+const customShortUrl = defineModel('customShortUrl');
 const emits = defineEmits(['generateUrl']);
 const generateUrl = () => {
   emits('generateUrl');

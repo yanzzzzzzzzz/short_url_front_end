@@ -1,7 +1,7 @@
 <template>
   <div class="container pt-2" style="max-width: 650px; min-height: 300px">
     <UrlHeader />
-    <UrlShortenForm v-model="url" @generateUrl="generateUrl" />
+    <UrlShortenForm v-model:url="url" v-model:customShortUrl="customShortUrl" @generateUrl="generateUrl" />
     <UrlDisplayList :urlMap="UrlStore.urls" @deleteUrl="deleteUrl" />
   </div>
   <UrlIntroduction />
@@ -27,6 +27,7 @@ import {
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
 const url = ref('');
+const customShortUrl = ref('');
 
 const addUrl = (shortUrlModel: ShortUrlModel): void => {
   UrlStore.addUrl(shortUrlModel);
@@ -39,7 +40,7 @@ const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promi
 };
 
 const generateUrl = async (): Promise<void> => {
-  const shortUrlModel = await urlService.createShortUrl(url.value);
+  const shortUrlModel = await urlService.createShortUrl(url.value, customShortUrl.value);
 
   addUrl(shortUrlModel);
   url.value = '';

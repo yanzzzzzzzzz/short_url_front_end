@@ -20,8 +20,8 @@ apiClient.interceptors.request.use(
   }
 );
 
-const createShortUrl = async (url: string): Promise<ShortUrlModel> => {
-  const response = await apiClient.post('/', { url });
+const createShortUrl = async (url: string, customShortUrl: string): Promise<ShortUrlModel> => {
+  const response = await apiClient.post('/', { url, customShortUrl });
   return response.data;
 };
 
