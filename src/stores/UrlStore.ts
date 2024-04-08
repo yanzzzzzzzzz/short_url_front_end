@@ -12,7 +12,7 @@ export const useUrlStore = defineStore('UrlStore', {
       this.urls.push(urlObject);
     },
     deleteUrl(urlObject: ShortUrlModel) {
-      this.urls = this.urls.filter((u) => u.shortUrl !== urlObject.shortUrl);
+      this.urls = this.urls.filter((u: { shortUrl: string; }) => u.shortUrl !== urlObject.shortUrl);
     },
     clearUrl() {
       this.urls = [];
