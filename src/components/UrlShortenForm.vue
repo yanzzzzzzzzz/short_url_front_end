@@ -3,13 +3,16 @@
     <p>Shorten a long URL</p>
     <input type="text" placeholder="Enter long link here" v-model="url" />
     <p>Customize your link(optional)</p>
-    <input type="text" placeholder="Enter alias" v-model="customShortUrl"/>
+    <input type="text" placeholder="Enter alias" v-model="customShortUrl" />
     <button type="button" class="btn btn-primary" @click="generateUrl" data-cy="shortUrl">
       Shorten URL
     </button>
+    <p style="color: red">{{ messageStore.getErrorMessage }}</p>
   </div>
 </template>
 <script setup lang="ts">
+import { useMessageStore } from '../stores/MessageStore';
+const messageStore = useMessageStore();
 const url = defineModel('url');
 const customShortUrl = defineModel('customShortUrl');
 const emits = defineEmits(['generateUrl']);
