@@ -5,7 +5,17 @@
     :key="url.shortUrl"
     style="text-align: left; height: 52px"
   >
-    <div class="col-5">
+    <div class="col-1">
+      <img
+        style="height: 32px; width: 32px"
+        :src="
+          'https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=' +
+          url.originUrl +
+          '&size=64'
+        "
+      />
+    </div>
+    <div class="col-4">
       {{ showUrlFormatted(url.originUrl) }}
     </div>
     <div class="col-4"></div>
