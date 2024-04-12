@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-2" style="max-width: 650px; min-height: 300px">
+  <div class="container pt-2" style="max-width: 1000px">
     <UrlHeader />
     <UrlShortenForm
       v-model:url="url"
@@ -29,6 +29,7 @@ import {
   showAddUrlSuccessNotification
 } from '../utils/notifications';
 import { useMessageStore } from '../stores/MessageStore';
+
 const messageStore = useMessageStore();
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
@@ -40,7 +41,7 @@ const addUrl = (shortUrlModel: ShortUrlModel): void => {
   showAddUrlSuccessNotification();
 };
 
-const deleteUrl = async (urlObj: { originUrl: string; shortUrl: string }): Promise<void> => {
+const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
   UrlStore.deleteUrl(urlObj);
   const response = await urlService.deleteUrl(urlObj.shortUrl);
 };
@@ -67,8 +68,12 @@ onMounted(async () => {
       const data = await urlService.getAllUrl();
       UrlStore.setUrl(
         data.map((item) => ({
+          shortUrl: item.shortUrl,
           originUrl: item.originUrl,
-          shortUrl: item.shortUrl
+          fullShortUrl: `${window.location.origin}/api/url/${item.shortUrl}`,
+          previewImage: item.previewImage,
+          createTime: item.createTime,
+          title: item.title
         }))
       );
       showLoginSuccessNotification(userStore.user.username);
