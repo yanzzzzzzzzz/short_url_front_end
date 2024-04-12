@@ -22,7 +22,7 @@
                 :icon="['fa', 'link']"
                 size="lg"
               />
-              <a :href="url.fullShortUrl" target="_blank">{{ url.shortUrl }}</a>
+              <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
             </div>
             <a class="originalUrl-text" :href="url.originUrl" target="_blank">{{
               url.originUrl
