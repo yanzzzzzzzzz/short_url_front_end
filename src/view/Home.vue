@@ -49,7 +49,10 @@ const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
 const generateUrl = async (): Promise<void> => {
   try {
     const shortUrlModel = await urlService.createShortUrl(url.value, customShortUrl.value);
-    addUrl(shortUrlModel);
+    addUrl({
+      ...shortUrlModel,
+      fullShortUrl: `${window.location.origin}/api/url/${shortUrlModel.shortUrl}`
+    });
     url.value = '';
     messageStore.setErrorMessage('');
   } catch (error) {
