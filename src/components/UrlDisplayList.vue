@@ -15,7 +15,7 @@
           </div>
           <div class="col-9" style="color: black; text-align: left">
             <h4 class="underline-on-hover clickable">{{ showUrlFormatted(url.title) }}</h4>
-            <div>
+            <div class="pt-2">
               <font-awesome-icon
                 class="text-primary"
                 role="button"
@@ -24,9 +24,11 @@
               />
               <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
             </div>
-            <a class="originalUrl-text" :href="url.originUrl" target="_blank">{{
-              url.originUrl
-            }}</a>
+            <div class="pt-1">
+              <a class="originalUrl-text" :href="url.originUrl" target="_blank">{{
+                url.originUrl
+              }}</a>
+            </div>
           </div>
           <div class="col-auto">
             <font-awesome-icon
