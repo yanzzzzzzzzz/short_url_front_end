@@ -1,55 +1,74 @@
 <template>
-  <div v-for="url in urlMap" :key="url.shortUrl">
-    <div class="card my-2 p-2" style="max-height: 200px">
-      <div class="card-body container">
-        <div class="row">
-          <div class="col-1">
-            <img
-              style="height: 32px; width: 32px"
-              :src="
-                'https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=' +
-                url.originUrl +
-                '&size=64'
-              "
-            />
-          </div>
-          <div class="col-9" style="color: black; text-align: left">
-            <h4 class="underline-on-hover clickable">{{ showUrlFormatted(url.title) }}</h4>
-            <div class="pt-2">
-              <font-awesome-icon
-                class="text-primary"
-                role="button"
-                :icon="['fa', 'link']"
-                size="lg"
+  <div>
+    <h1 style="text-align: left">Links</h1>
+    <hr />
+    <div v-if="urlMap.length > 0" v-for="url in urlMap" :key="url.shortUrl">
+      <div class="card my-2 p-2" style="max-height: 200px">
+        <div class="card-body container">
+          <div class="row">
+            <div class="col-1">
+              <img
+                style="height: 32px; width: 32px"
+                :src="
+                  'https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=' +
+                  url.originUrl +
+                  '&size=64'
+                "
               />
-              <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
             </div>
-            <div class="pt-1">
-              <a class="originalUrl-text" :href="url.originUrl" target="_blank">{{
-                url.originUrl
-              }}</a>
+            <div class="col-8" style="color: black; text-align: left">
+              <h4 class="underline-on-hover clickable">{{ showUrlFormatted(url.title) }}</h4>
+              <div class="pt-2">
+                <font-awesome-icon
+                  class="text-primary"
+                  role="button"
+                  :icon="['fa', 'link']"
+                  size="lg"
+                />
+                <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
+              </div>
+              <div class="pt-1">
+                <a class="originalUrl-text" :href="url.originUrl" target="_blank">{{
+                  url.originUrl
+                }}</a>
+              </div>
             </div>
-          </div>
-          <div class="col-auto">
-            <font-awesome-icon
-              class="text-secondary"
-              role="button"
-              :icon="['fa', 'copy']"
-              size="lg"
-              @click="copyUrl(url.fullShortUrl)"
-            />
-          </div>
-          <div class="col-auto">
-            <font-awesome-icon
-              class="text-danger"
-              role="button"
-              :icon="['fa', 'trash']"
-              size="lg"
-              @click="deleteUrl(url)"
-            />
+            <div class="col-1">
+              <button class="button-border" @click="copyUrl(url.fullShortUrl)">
+                <font-awesome-icon
+                  class="text-secondary"
+                  role="button"
+                  :icon="['fa', 'copy']"
+                  size="lg"
+                />
+              </button>
+            </div>
+            <div class="col-1">
+              <button class="button-border">
+                <font-awesome-icon
+                  style="color: blue"
+                  role="button"
+                  :icon="['fa', 'edit']"
+                  size="lg"
+                />
+              </button>
+            </div>
+            <div class="col-1">
+              <button class="button-border" @click="deleteUrl(url)">
+                <font-awesome-icon
+                  class="text-danger"
+                  role="button"
+                  :icon="['fa', 'trash']"
+                  size="lg"
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+    <div v-else style="display: flex; justify-content: center">
+      <p>no link here.</p>
     </div>
   </div>
 </template>
@@ -109,5 +128,9 @@ a {
 }
 a:hover {
   text-decoration: underline !important;
+}
+.button-border {
+  border: 0.1rem solid #dbe0eb;
+  background-color: white;
 }
 </style>
