@@ -1,17 +1,23 @@
 import { createApp } from 'vue';
-import './style.css';
+// import './style.css';
 import App from './App.vue';
 import router from './router';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCopy, faTrash, faLink, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { createPinia } from 'pinia';
+import PrimeVue from 'primevue/config';
+import "primeflex/primeflex.css";
+import 'primevue/resources/themes/saga-blue/theme.css';
+import 'primevue/resources/primevue.min.css';
+import 'primeicons/primeicons.css';
 
 library.add(faCopy, faTrash, faLink, faEdit);
 const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.component('font-awesome-icon', FontAwesomeIcon);
+app.use(PrimeVue);
 app.mount('#app');

@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-2" style="max-width: 1000px">
+  <div class="container pt-2" style="text-align: center">
     <UrlHeader />
     <UrlShortenForm
       v-model:url="url"
