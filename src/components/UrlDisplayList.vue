@@ -22,11 +22,15 @@
           <span class="pi pi-clone ml-2" @click="copyUrl(url.fullShortUrl)"></span>
           <span class="pi pi-trash ml-2" @click="deleteUrl(url)"></span>
         </template>
-        <div>
-          <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
-        </div>
-        <div>
-          <a class="originalUrl-text" :href="url.originUrl" target="_blank">{{ url.originUrl }}</a>
+        <div class="pl-3">
+          <div>
+            <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
+          </div>
+          <div>
+            <a class="originalUrl-text" :href="url.originUrl" target="_blank"
+              >{{ url.originUrl }}
+            </a>
+          </div>
         </div>
       </Panel>
     </div>
