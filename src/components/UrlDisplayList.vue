@@ -18,9 +18,15 @@
           </div>
         </template>
         <template #icons>
-          <span class="pi pi-pencil"></span>
-          <span class="pi pi-clone ml-2" @click="copyUrl(url.fullShortUrl)"></span>
-          <span class="pi pi-trash ml-2" @click="deleteUrl(url)"></span>
+          <Button class="ml-2 icon-button" @click="copyUrl(url.fullShortUrl)">
+            <span class="pi pi-clone pi-fill"></span>
+          </Button>
+          <Button class="ml-2 icon-button">
+            <span class="pi pi-pencil"></span>
+          </Button>
+          <Button class="ml-2 icon-button" @click="deleteUrl(url)">
+            <span class="pi pi-trash"></span>
+          </Button>
         </template>
         <div class="pl-3">
           <div>
@@ -103,7 +109,15 @@ a:hover {
   background-color: white;
 }
 .p-panel::v-deep .p-panel-header {
-  border-bottom: none; /* 移除 header 的底部邊框 */
+  border-bottom: none;
   background-color: white;
+}
+.icon-button {
+  color: black;
+  background-color: transparent;
+  border: 0.1rem solid #c3cbdc;
+}
+.icon-button:hover {
+  background-color: #f0f0f0;
 }
 </style>
