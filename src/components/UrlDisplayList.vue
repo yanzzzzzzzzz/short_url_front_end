@@ -21,7 +21,7 @@
           <Button class="ml-2 icon-button" @click="copyUrl(url.fullShortUrl)">
             <span class="pi pi-clone pi-fill"></span>
           </Button>
-          <Button class="ml-2 icon-button">
+          <Button class="ml-2 icon-button" @click="editUrl(url)">
             <span class="pi pi-pencil"></span>
           </Button>
           <Button class="ml-2 icon-button" @click="deleteUrl(url)">
@@ -43,6 +43,7 @@
     <div v-else style="display: flex; justify-content: center">
       <p>no link here.</p>
     </div>
+    <EditUrl v-model:visible="visible" :title="nowEditTitle" :shortUrl="nowEditShortUrl" />
   </div>
 </template>
 <script setup lang="ts">
@@ -52,12 +53,16 @@ import { ShortUrlModel } from '../models/UrlModel';
 import { showCopySuccessNotification } from '../utils/notifications';
 import Button from 'primevue/button';
 import Panel from 'primevue/panel';
+import EditUrl from './EditUrl.vue';
 defineProps({
   urlMap: {
     required: true,
     type: Object
   }
 });
+const visible = ref(false);
+const nowEditTitle = ref('');
+const nowEditShortUrl = ref('');
 const emits = defineEmits(['deleteUrl']);
 const maxLength = ref(50);
 
@@ -69,6 +74,11 @@ const copyUrl = (shortUrl: string) => {
 
 const deleteUrl = (urlObj: ShortUrlModel) => {
   emits('deleteUrl', urlObj);
+};
+const editUrl = (urlObj: ShortUrlModel) => {
+  nowEditTitle.value = urlObj.title;
+  nowEditShortUrl.value = urlObj.shortUrl;
+  visible.value = true;
 };
 
 const showUrlFormatted = (url: string) => {
