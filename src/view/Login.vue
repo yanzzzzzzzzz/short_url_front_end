@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login py-2 text-center">
     <h1>Login</h1>
     <form @submit.prevent="login">
       <div>
