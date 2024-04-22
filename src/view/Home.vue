@@ -29,7 +29,7 @@ import {
   showAddUrlSuccessNotification
 } from '../utils/notifications';
 import { useMessageStore } from '../stores/MessageStore';
-
+import { transferIdModel } from '../utils/transfer';
 const messageStore = useMessageStore();
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
@@ -69,16 +69,7 @@ onMounted(async () => {
   if (userStore.user.token !== '') {
     try {
       const data = await urlService.getAllUrl();
-      UrlStore.setUrl(
-        data.map((item) => ({
-          shortUrl: item.shortUrl,
-          originUrl: item.originUrl,
-          fullShortUrl: `${window.location.origin}/api/url/${item.shortUrl}`,
-          previewImage: item.previewImage,
-          createTime: item.createTime,
-          title: item.title
-        }))
-      );
+      UrlStore.setUrl(data.map((item) => transferIdModel(item)));
       showLoginSuccessNotification(userStore.user.username);
     } catch (error) {
       if (error.response.status === 401) {
