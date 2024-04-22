@@ -43,7 +43,13 @@
     <div v-else style="display: flex; justify-content: center">
       <p>no link here.</p>
     </div>
-    <EditUrl v-model:visible="visible" :title="nowEditTitle" :shortUrl="nowEditShortUrl" />
+    <EditUrl
+      v-model:visible="visible"
+      v-model:title="nowEditTitle"
+      :shortUrl="nowEditShortUrl"
+      v-model:nowEditSelectShortUrl="nowEditSelectShortUrl"
+      @updateUrl="updateUrl"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -54,6 +60,11 @@ import { showCopySuccessNotification } from '../utils/notifications';
 import Button from 'primevue/button';
 import Panel from 'primevue/panel';
 import EditUrl from './EditUrl.vue';
+import urlService from '../service/url';
+import { useUrlStore } from '../stores/UrlStore';
+import { transferIdModel } from '../utils/transfer';
+const UrlStore = useUrlStore();
+
 defineProps({
   urlMap: {
     required: true,
@@ -63,6 +74,7 @@ defineProps({
 const visible = ref(false);
 const nowEditTitle = ref('');
 const nowEditShortUrl = ref('');
+const nowEditSelectShortUrl = ref('');
 const emits = defineEmits(['deleteUrl']);
 const maxLength = ref(50);
 
@@ -78,7 +90,26 @@ const deleteUrl = (urlObj: ShortUrlModel) => {
 const editUrl = (urlObj: ShortUrlModel) => {
   nowEditTitle.value = urlObj.title;
   nowEditShortUrl.value = urlObj.shortUrl;
+  nowEditSelectShortUrl.value = urlObj.shortUrl;
   visible.value = true;
+};
+const updateUrl = async (originalShortUrl: string, newShortUrl: string, newTitle: string) => {
+  try {
+    console.log(
+      'originalShortUrl:',
+      originalShortUrl,
+      'newShortUrl:',
+      newShortUrl,
+      'newTitle:',
+      newTitle
+    );
+    const data = await urlService.updateUrl(originalShortUrl, newShortUrl, newTitle);
+    console.log('response', data);
+    UrlStore.updateUrl(originalShortUrl, transferIdModel(data));
+    visible.value = false;
+  } catch (error) {
+    console.log('error', error);
+  }
 };
 
 const showUrlFormatted = (url: string) => {

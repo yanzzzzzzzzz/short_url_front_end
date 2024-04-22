@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useUserStore } from '../stores/UserStore';
-import { ShortUrlModel, ShortUrlWithIdModel } from '../models/UrlModel';
+import { ShortUrl, ShortUrlModel, ShortUrlWithIdModel } from '../models/UrlModel';
 const API_BASE_URL = '/api/url';
 
 const apiClient = axios.create({
@@ -35,8 +35,13 @@ const deleteUrl = async (url) => {
   return response;
 };
 
+const updateUrl = async (shortUrl: string, newShortUrl: string, newTitle: string): Promise<ShortUrl> => {
+  return (await apiClient.patch(`/${shortUrl}`, { newShortUrl, newTitle })).data;
+}
+
 export default {
   createShortUrl,
   getAllUrl,
-  deleteUrl
+  deleteUrl,
+  updateUrl
 };

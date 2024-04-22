@@ -16,6 +16,12 @@ export const useUrlStore = defineStore('UrlStore', {
     },
     clearUrl() {
       this.urls = [];
+    },
+    updateUrl(originalUrl: string, newUrlObject: ShortUrlModel) {
+      const foundUrlIndex = this.urls.findIndex(urlObj => urlObj.shortUrl === originalUrl);
+      if (foundUrlIndex !== -1) {
+        this.urls[foundUrlIndex] = newUrlObject;
+      }
     }
   },
   getters: {
