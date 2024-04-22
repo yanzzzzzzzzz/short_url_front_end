@@ -107,6 +107,11 @@ const showUrlFormatted = (url: string) => {
 }
 .originalUrl-text {
   color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 800px;
 }
 a {
   text-decoration: none !important;
