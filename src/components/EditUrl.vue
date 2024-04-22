@@ -14,6 +14,7 @@
         class="flex-auto"
         autocomplete="off"
         v-model="nowEditSelectShortUrl"
+        :invalid="invalid"
       />
     </div>
     <template #footer>
@@ -31,11 +32,15 @@
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import { Ref } from 'vue';
+import { ref, Ref } from 'vue';
 defineProps({
   shortUrl: {
     required: true,
     type: String
+  },
+  invalid: {
+    required: true,
+    type: Boolean
   }
 });
 const emits = defineEmits(['updateUrl']);

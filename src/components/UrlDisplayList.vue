@@ -49,6 +49,7 @@
       :shortUrl="nowEditShortUrl"
       v-model:nowEditSelectShortUrl="nowEditSelectShortUrl"
       @updateUrl="updateUrl"
+      :invalid="invalid"
     />
   </div>
 </template>
@@ -77,6 +78,7 @@ const nowEditShortUrl = ref('');
 const nowEditSelectShortUrl = ref('');
 const emits = defineEmits(['deleteUrl']);
 const maxLength = ref(50);
+const invalid = ref(false);
 
 const copyUrl = (shortUrl: string) => {
   navigator.clipboard.writeText(shortUrl).then(() => {
@@ -91,6 +93,7 @@ const editUrl = (urlObj: ShortUrlModel) => {
   nowEditTitle.value = urlObj.title;
   nowEditShortUrl.value = urlObj.shortUrl;
   nowEditSelectShortUrl.value = urlObj.shortUrl;
+  invalid.value = false;
   visible.value = true;
 };
 const updateUrl = async (originalShortUrl: string, newShortUrl: string, newTitle: string) => {
@@ -109,6 +112,9 @@ const updateUrl = async (originalShortUrl: string, newShortUrl: string, newTitle
     visible.value = false;
   } catch (error) {
     console.log('error', error);
+    if (error.response.status === 409) {
+      invalid.value = true;
+    }
   }
 };
 
