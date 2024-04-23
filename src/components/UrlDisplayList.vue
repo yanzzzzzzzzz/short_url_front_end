@@ -8,7 +8,7 @@
     <div v-else style="display: flex; justify-content: center">
       <p>no link here.</p>
     </div>
-    <EditUrl
+    <EditUrlDialog
       v-model:visible="visible"
       v-model:title="nowEditTitle"
       :shortUrl="nowEditShortUrl"
@@ -23,8 +23,7 @@ import { ref } from 'vue';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import { showCopySuccessNotification } from '../utils/notifications';
-
-import EditUrl from './EditUrl.vue';
+import EditUrlDialog from './EditUrlDialog.vue';
 import urlService from '../service/url';
 import { useUrlStore } from '../stores/UrlStore';
 import { transferIdModel } from '../utils/transfer';
