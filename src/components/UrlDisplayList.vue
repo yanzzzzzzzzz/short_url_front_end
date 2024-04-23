@@ -3,42 +3,7 @@
     <h1 style="text-align: left">Links</h1>
     <hr />
     <div v-if="urlMap.length > 0" v-for="url in urlMap" :key="url.shortUrl">
-      <Panel style="margin-top: 1rem; text-align: left">
-        <template #header>
-          <div class="flex align-items-center gap-2">
-            <img
-              style="height: 32px; width: 32px"
-              :src="
-                'https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=' +
-                url.originUrl +
-                '&size=64'
-              "
-            />
-            <span class="font-bold">{{ url.title }}</span>
-          </div>
-        </template>
-        <template #icons>
-          <Button class="ml-2 icon-button" @click="copyUrl(url.fullShortUrl)">
-            <span class="pi pi-clone pi-fill"></span>
-          </Button>
-          <Button class="ml-2 icon-button" @click="editUrl(url)">
-            <span class="pi pi-pencil"></span>
-          </Button>
-          <Button class="ml-2 icon-button" @click="deleteUrl(url)">
-            <span class="pi pi-trash"></span>
-          </Button>
-        </template>
-        <div class="pl-3">
-          <div>
-            <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
-          </div>
-          <div>
-            <a class="originalUrl-text" :href="url.originUrl" target="_blank"
-              >{{ url.originUrl }}
-            </a>
-          </div>
-        </div>
-      </Panel>
+      <UrlLinkPanel :url="url" @copyUrl="copyUrl" @editUrl="editUrl" @deleteUrl="deleteUrl" />
     </div>
     <div v-else style="display: flex; justify-content: center">
       <p>no link here.</p>
@@ -58,12 +23,12 @@ import { ref } from 'vue';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import { showCopySuccessNotification } from '../utils/notifications';
-import Button from 'primevue/button';
-import Panel from 'primevue/panel';
+
 import EditUrl from './EditUrl.vue';
 import urlService from '../service/url';
 import { useUrlStore } from '../stores/UrlStore';
 import { transferIdModel } from '../utils/transfer';
+import UrlLinkPanel from './UrlLinkPanel.vue';
 const UrlStore = useUrlStore();
 
 defineProps({
@@ -127,49 +92,4 @@ const showUrlFormatted = (url: string) => {
   }
 };
 </script>
-<style scoped>
-.custom-class {
-  display: flex;
-  align-items: center;
-  height: 200px;
-}
-.clickable {
-  cursor: pointer;
-}
-.url-text {
-  color: blue;
-}
-.underline-on-hover:hover {
-  text-decoration: underline !important;
-}
-.originalUrl-text {
-  color: black;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-  width: 800px;
-}
-a {
-  text-decoration: none !important;
-}
-a:hover {
-  text-decoration: underline !important;
-}
-.button-border {
-  border: 0.1rem solid #dbe0eb;
-  background-color: white;
-}
-.p-panel::v-deep .p-panel-header {
-  border-bottom: none;
-  background-color: white;
-}
-.icon-button {
-  color: black;
-  background-color: transparent;
-  border: 0.1rem solid #c3cbdc;
-}
-.icon-button:hover {
-  background-color: #f0f0f0;
-}
-</style>
+<style scoped></style>
