@@ -2,14 +2,13 @@
   <Toolbar>
     <template #start>
       <router-link :to="{ name: 'home' }">
-        <h2>Short Url</h2>
+        <h2>ShortUrl</h2>
       </router-link>
     </template>
     <template #end>
       <div v-if="userStore.user.token === ''">
-        <router-link to="/login">
-          <Button label="Login"></Button>
-        </router-link>
+        <router-link to="/login" class="mr-2"> Login </router-link>
+        <router-link to="/signup" class="mr-2"> Signup </router-link>
       </div>
       <div v-else>
         <Button label="Logout" @click="logout"></Button>
@@ -35,3 +34,9 @@ const logout = () => {
   localStorage.removeItem('loginInfo');
 };
 </script>
+<style scoped>
+a {
+  color: black;
+  text-decoration: none;
+}
+</style>
