@@ -6,14 +6,14 @@ function getGoogleOAuthURL() {
     GoogleClientId: "393147601550-fikm3621o6j5ub41cntmnp3clh9uhhjf.apps.googleusercontent.com"
   }
   const options: {
-    redirectUri?: string;
+    redirectUrl?: string;
     clientId: string;
     accessType: string;
     responseType: string;
     prompt: string;
     scope: string;
   } = {
-    redirectUri: config.GoogleOAuthRedirectUrl,
+    redirectUrl: config.GoogleOAuthRedirectUrl,
     clientId: config.GoogleClientId as string,
     accessType: 'offline',
     responseType: 'code',
