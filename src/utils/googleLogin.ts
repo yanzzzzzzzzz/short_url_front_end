@@ -6,17 +6,17 @@ function getGoogleOAuthURL() {
     GoogleClientId: "393147601550-fikm3621o6j5ub41cntmnp3clh9uhhjf.apps.googleusercontent.com"
   }
   const options: {
-    redirectUrl?: string;
-    clientId: string;
-    accessType: string;
-    responseType: string;
+    redirect_uri?: string;
+    client_id: string;
+    access_type: string;
+    response_type: string;
     prompt: string;
     scope: string;
   } = {
-    redirectUrl: config.GoogleOAuthRedirectUrl,
-    clientId: config.GoogleClientId as string,
-    accessType: 'offline',
-    responseType: 'code',
+    redirect_uri: config.GoogleOAuthRedirectUrl,
+    client_id: config.GoogleClientId as string,
+    access_type: 'offline',
+    response_type: 'code',
     prompt: 'consent',
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',
