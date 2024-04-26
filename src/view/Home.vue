@@ -30,6 +30,7 @@ import {
 } from '../utils/notifications';
 import { useMessageStore } from '../stores/MessageStore';
 import { transferIdModel } from '../utils/transfer';
+import { getCookie } from '../utils/cookie';
 const messageStore = useMessageStore();
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
@@ -61,12 +62,12 @@ const generateUrl = async (): Promise<void> => {
 };
 
 onMounted(async () => {
-  if (localStorage.getItem('loginInfo')) {
-    console.log('localStorage.getItem', localStorage.getItem('loginInfo'));
-    userStore.setUser(JSON.parse(localStorage.getItem('loginInfo') || ''));
+  const name = getCookie('username');
+  if (name !== '') {
+    userStore.setUser({ username: name });
   }
 
-  if (userStore.user.token !== '') {
+  if (userStore.user.username !== '') {
     try {
       const data = await urlService.getAllUrl();
       UrlStore.setUrl(data.map((item) => transferIdModel(item)));
@@ -76,9 +77,7 @@ onMounted(async () => {
         showTokenExpireNotification();
         localStorage.removeItem('loginInfo');
         userStore.setUser({
-          token: '',
-          username: '',
-          name: ''
+          username: ''
         });
       } else {
         showErrorNotification(error.response.data.error);

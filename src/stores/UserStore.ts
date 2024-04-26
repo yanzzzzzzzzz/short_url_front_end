@@ -3,9 +3,7 @@ import { UserModel } from '../models/UserModel';
 export const useUserStore = defineStore('UserStore', {
   state: (): { user: UserModel } => ({
     user: {
-      token: '',
-      username: '',
-      name: ''
+      username: ''
     }
   }),
   actions: {
@@ -14,9 +12,7 @@ export const useUserStore = defineStore('UserStore', {
     },
     clearUser() {
       this.user = {
-        token: '',
-        username: '',
-        name: ''
+        username: ''
       };
     }
   },

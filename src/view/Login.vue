@@ -21,7 +21,7 @@ import loginService from '../service/login';
 import { ref } from 'vue';
 import router from '../router';
 import { useUserStore } from '../stores/UserStore';
-import { UserModel } from '../models/UserModel';
+import { getCookie } from '../utils/cookie';
 const userStore = useUserStore();
 const username = ref('');
 const password = ref('');
@@ -30,21 +30,15 @@ const errorMessage = ref('');
 const login = async () => {
   if (username.value && password.value) {
     try {
-      const { data } = await loginService.login({
+      await loginService.login({
         username: username.value,
         password: password.value
       });
-
-      if (data.token) {
-        const userLoginInfo: UserModel = {
-          token: data.token,
-          username: data.username,
-          name: data.name
-        };
-        userStore.setUser(userLoginInfo);
-        localStorage.setItem('loginInfo', JSON.stringify(userLoginInfo));
-        router.push({ name: 'home' });
+      const name = getCookie('username');
+      if (name !== '') {
+        userStore.setUser({ username: name });
       }
+      router.push({ name: 'home' });
     } catch (error) {
       errorMessage.value = 'Login failed. Please check your credentials.';
     }
