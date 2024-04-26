@@ -13,10 +13,10 @@
 </template>
 <script setup lang="ts">
 import InputText from 'primevue/inputtext';
-import getGoogleOAuthURL from '../utils/googleLogin';
+import { getGoogleOAuthURL } from '../utils/googleLogin';
 import { ref } from 'vue';
 const loginWithGoogle = () => {
-  window.location.href = getGoogleOAuthURL();
+  window.location.href = getGoogleOAuthURL('consent');
 };
 const email = ref('');
 const password = ref('');
