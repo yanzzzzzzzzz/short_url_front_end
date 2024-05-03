@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../view/Home.vue';
 import Login from '../view/Login.vue';
 import Navbar from '../components/Navbar.vue';
-import Signup from '../components/SignUp.vue';
+import Signup from '../view/Signup.vue';
 const routes = [
   {
     path: '/',

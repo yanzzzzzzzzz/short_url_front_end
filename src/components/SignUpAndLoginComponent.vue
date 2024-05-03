@@ -1,6 +1,6 @@
 <template>
   <div class="center-container">
-    <h2>Create your account</h2>
+    <h2>{{ title }}</h2>
     <div class="dis">
       <FloatLabel class="mt-4">
         <InputText id="email" v-model="email" />
@@ -10,10 +10,7 @@
         <InputText id="password" v-model="password" />
         <label for="password">Password</label>
       </FloatLabel>
-      <p>
-        Already have an account?
-        <a>Log in.</a>
-      </p>
+      <slot></slot>
       <Button class="mb-2" label="Sign up"></Button>
       <div class="css-1mkmswe">OR</div>
       <Button class="my-3" @click="loginWithGoogle()" label="Continue with Google"></Button>
@@ -21,12 +18,17 @@
   </div>
 </template>
 <script setup lang="ts">
-import InputText from 'primevue/inputtext';
 import { getGoogleOAuthURLSignUp } from '../utils/googleLogin';
 import { ref } from 'vue';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
-
+import InputText from 'primevue/inputtext';
+defineProps({
+  title: {
+    required: true,
+    type: String
+  }
+});
 const loginWithGoogle = () => {
   window.location.href = getGoogleOAuthURLSignUp('consent');
 };
@@ -36,9 +38,9 @@ const password = ref('');
 <style scoped>
 .center-container {
   display: flex;
-  justify-content: flex-start; /* 將元素置於容器的起始位置 */
-  align-items: center; /* 垂直置中 */
-  flex-direction: column; /* 將元素垂直排列 */
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 .dis {
   display: flex;
