@@ -1,6 +1,8 @@
 <template>
   <div class="login py-2 text-center">
     <h1>Login</h1>
+    <Button label="Continue with Google" @click="loginWithGoogle()"></Button>
+    <p>OR</p>
     <form @submit.prevent="login">
       <div>
         <label for="username">Username:</label>
@@ -22,6 +24,9 @@ import { ref } from 'vue';
 import router from '../router';
 import { useUserStore } from '../stores/UserStore';
 import { getCookie } from '../utils/cookie';
+import { getGoogleOAuthURLLogin } from '../utils/googleLogin';
+import Button from 'primevue/button';
+
 const userStore = useUserStore();
 const username = ref('');
 const password = ref('');
@@ -45,6 +50,10 @@ const login = async () => {
   } else {
     errorMessage.value = 'Please enter both username and password.';
   }
+};
+
+const loginWithGoogle = async () => {
+  window.location.href = getGoogleOAuthURLLogin('select_account');
 };
 </script>
 <style>
