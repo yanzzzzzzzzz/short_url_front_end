@@ -3,7 +3,7 @@ describe('test', () => {
     // Visit the website's homepage
     cy.visit('http://127.0.0.1:5173/');
   });
-  it('Successfully logs in and logs out', () => {
+  it('Successfully log in and log out', () => {
     cy.contains('Login').click();
     cy.url().should('include', '/login');
 
@@ -13,7 +13,7 @@ describe('test', () => {
 
     cy.contains('Logout').click();
   });
-  it('test short url and find it then delete it', () => {
+  it('should generate a short URL, find it, and then delete it', () => {
     const testUrl = 'https://www.google.com.tw/';
     cy.get('[data-cy="urlInputText"]').type(testUrl);
     cy.get('[data-cy="shortUrl"]').click();
