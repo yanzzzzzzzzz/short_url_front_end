@@ -1,7 +1,7 @@
 <template>
   <div class="center-container">
     <h2>Create your account</h2>
-    <div class="dis">
+    <div class="form-container">
       <FloatLabel class="mt-4">
         <InputText id="email" v-model="email" />
         <label for="email">Email</label>
@@ -44,7 +44,7 @@ const username = ref('');
   align-items: center;
   flex-direction: column;
 }
-.dis {
+.form-container {
   display: flex;
   flex-direction: column;
 }
