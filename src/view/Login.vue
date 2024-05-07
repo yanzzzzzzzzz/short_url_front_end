@@ -5,8 +5,8 @@
     <p>OR</p>
     <form @submit.prevent="login">
       <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" v-model="username" data-cy="username" />
+        <label for="email">Email:</label>
+        <input type="text" id="email" v-model="email" data-cy="email" />
       </div>
       <div>
         <label for="password">Password:</label>
@@ -28,15 +28,15 @@ import { getGoogleOAuthURLLogin } from '../utils/googleLogin';
 import Button from 'primevue/button';
 
 const userStore = useUserStore();
-const username = ref('');
+const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
 
 const login = async () => {
-  if (username.value && password.value) {
+  if (email.value && password.value) {
     try {
       await loginService.login({
-        username: username.value,
+        email: email.value,
         password: password.value
       });
       const name = getCookie('username');

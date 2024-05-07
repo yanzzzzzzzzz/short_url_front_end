@@ -3,6 +3,6 @@ export interface UserModel {
 }
 
 export interface CredentialsModel {
-  username: string;
+  email: string;
   password: string;
 }
