@@ -10,12 +10,11 @@
         <InputText id="password" v-model="password" />
         <label for="password">Password</label>
       </FloatLabel>
+      <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
       <Button class="my-3" data-cy="submit" label="Login" @click="login"></Button>
       <div class="css-1mkmswe">OR</div>
       <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
     </div>
-
-    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
   </div>
 </template>
 
