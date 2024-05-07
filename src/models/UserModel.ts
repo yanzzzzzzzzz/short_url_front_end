@@ -2,7 +2,7 @@ export interface UserModel {
   username: string;
 }
 
-export interface CredentialsModel {
+export interface LoginModel {
   email: string;
   password: string;
 }
