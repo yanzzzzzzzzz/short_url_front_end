@@ -1,11 +1,6 @@
 <template>
-  <SignUpAndLoginComponent title="Create your account">
-    <p>
-      Already have an account?
-      <a>Log in.</a>
-    </p>
-  </SignUpAndLoginComponent>
+  <SignUp />
 </template>
 <script setup lang="ts">
-import SignUpAndLoginComponent from '../components/SignUpAndLoginComponent.vue';
+import SignUp from '../components/SignUp.vue';
 </script>
