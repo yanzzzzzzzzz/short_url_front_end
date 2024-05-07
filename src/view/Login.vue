@@ -3,15 +3,15 @@
     <h1>Login</h1>
     <div class="form-container">
       <FloatLabel class="mt-4">
-        <InputText id="email" v-model="email" />
+        <InputText id="email" v-model="email" data-cy="email" />
         <label for="email">Email</label>
       </FloatLabel>
       <FloatLabel class="mt-4">
-        <Password id="password" v-model="password" :feedback="false" />
+        <Password id="password" v-model="password" :feedback="false" data-cy="password" />
         <label for="password">Password</label>
       </FloatLabel>
       <div v-if="errorMessage" class="errorMsg">{{ errorMessage }}</div>
-      <Button class="my-3" data-cy="submit" label="Login" @click="login"></Button>
+      <Button class="my-3" data-cy="login" label="Login" @click="login"></Button>
       <div class="css-1mkmswe">OR</div>
       <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
     </div>

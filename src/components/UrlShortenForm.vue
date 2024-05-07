@@ -1,7 +1,7 @@
 <template>
   <div class="shortUrlForm">
     <p>Shorten a long URL</p>
-    <input type="text" placeholder="Enter long link here" v-model="url" />
+    <input type="text" placeholder="Enter long link here" v-model="url" data-cy="urlInputText" />
     <p>Customize your link(optional)</p>
     <input type="text" placeholder="Enter alias" v-model="customShortUrl" />
     <button type="button" class="btn btn-primary" @click="generateUrl" data-cy="shortUrl">

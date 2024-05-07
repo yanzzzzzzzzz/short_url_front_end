@@ -20,7 +20,7 @@
       <Button class="ml-2 icon-button" @click="editUrl(url)">
         <span class="pi pi-pencil"></span>
       </Button>
-      <Button class="ml-2 icon-button" @click="deleteUrl(url)">
+      <Button class="ml-2 icon-button" @click="deleteUrl(url)" data-cy="deleteUrl">
         <span class="pi pi-trash"></span>
       </Button>
     </template>
