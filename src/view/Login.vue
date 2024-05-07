@@ -7,10 +7,10 @@
         <label for="email">Email</label>
       </FloatLabel>
       <FloatLabel class="mt-4">
-        <InputText id="password" v-model="password" />
+        <Password id="password" v-model="password" :feedback="false" />
         <label for="password">Password</label>
       </FloatLabel>
-      <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
+      <div v-if="errorMessage" class="errorMsg">{{ errorMessage }}</div>
       <Button class="my-3" data-cy="submit" label="Login" @click="login"></Button>
       <div class="css-1mkmswe">OR</div>
       <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
@@ -28,6 +28,7 @@ import { getGoogleOAuthURLLogin } from '../utils/googleLogin';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 
 const userStore = useUserStore();
 const email = ref('');
@@ -59,10 +60,6 @@ const loginWithGoogle = async () => {
 };
 </script>
 <style scoped>
-input[type='text'],
-input[type='password'] {
-  margin: 10px 0;
-}
 .form-container {
   display: flex;
   flex-direction: column;
@@ -98,5 +95,8 @@ input[type='password'] {
   width: 100%;
   background: #dbe0eb;
   margin: auto 0;
+}
+.errorMsg {
+  color: red;
 }
 </style>
