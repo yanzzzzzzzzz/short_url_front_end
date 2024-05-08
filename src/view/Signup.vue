@@ -5,9 +5,10 @@
 import SignUp from '../components/SignUp.vue';
 import registerService from '../service/register';
 import { CreateUserModel } from '../models/UserModel';
-import router from '../router';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 const errorMessage = ref('');
+const router = useRouter();
 const createUser = async (newUser: CreateUserModel) => {
   try {
     await registerService.createUser(newUser);
