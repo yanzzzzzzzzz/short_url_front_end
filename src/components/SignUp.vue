@@ -11,14 +11,15 @@
         <label for="username">User name</label>
       </FloatLabel>
       <FloatLabel class="mt-4">
-        <InputText id="password" v-model="password" />
+        <Password id="password" v-model="password" :feedback="false" data-cy="password" />
         <label for="password">Password</label>
       </FloatLabel>
+      <div v-if="errorMessage" class="pt-1 text-red-500">{{ errorMessage }}</div>
       <p>
         Already have an account?
         <a>Log in.</a>
       </p>
-      <Button class="mb-2" label="Sign up"></Button>
+      <Button class="mb-2" label="Sign up" @click="createUser()"></Button>
       <div class="css-1mkmswe">OR</div>
       <Button class="my-3" @click="loginWithGoogle()" label="Continue with Google"></Button>
     </div>
@@ -26,16 +27,29 @@
 </template>
 <script setup lang="ts">
 import { getGoogleOAuthURLSignUp } from '../utils/googleLogin';
-import { ref } from 'vue';
+import { ref, Ref } from 'vue';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
-const loginWithGoogle = () => {
-  window.location.href = getGoogleOAuthURLSignUp('consent');
-};
+import Password from 'primevue/password';
+import { CreateUserModel } from '../models/UserModel';
+const emits = defineEmits(['createUser']);
 const email = ref('');
 const password = ref('');
 const username = ref('');
+const errorMessage = defineModel('errorMessage') as Ref<string | undefined>;
+
+const loginWithGoogle = () => {
+  window.location.href = getGoogleOAuthURLSignUp('consent');
+};
+const createUser = () => {
+  const newUser: CreateUserModel = {
+    username: username.value,
+    email: email.value,
+    password: password.value
+  };
+  emits('createUser', newUser);
+};
 </script>
 <style scoped>
 .center-container {
