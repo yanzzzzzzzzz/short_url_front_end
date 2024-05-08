@@ -1,28 +1,36 @@
 <template>
   <div class="center-container">
     <h2>Create your account</h2>
-    <div class="form-container">
-      <FloatLabel class="mt-4">
-        <InputText id="email" v-model="email" />
-        <label for="email">Email</label>
-      </FloatLabel>
-      <FloatLabel class="mt-4">
-        <InputText id="username" v-model="username" />
-        <label for="username">User name</label>
-      </FloatLabel>
-      <FloatLabel class="mt-4">
-        <Password id="password" v-model="password" :feedback="false" data-cy="password" />
-        <label for="password">Password</label>
-      </FloatLabel>
-      <div v-if="errorMessage" class="pt-1 text-red-500">{{ errorMessage }}</div>
-      <p>
-        Already have an account?
-        <a>Log in.</a>
-      </p>
-      <Button class="mb-2" label="Sign up" @click="createUser()"></Button>
-      <div class="css-1mkmswe">OR</div>
-      <Button class="my-3" @click="loginWithGoogle()" label="Continue with Google"></Button>
-    </div>
+    <form @submit.prevent="createUser">
+      <div class="form-container">
+        <FloatLabel class="mt-4">
+          <InputText id="email" v-model="email" />
+          <label for="email">Email</label>
+        </FloatLabel>
+        <FloatLabel class="mt-4">
+          <InputText id="username" v-model="username" />
+          <label for="username">User name</label>
+        </FloatLabel>
+        <FloatLabel class="mt-4">
+          <Password
+            id="current-password"
+            v-model="password"
+            :feedback="false"
+            data-cy="password"
+            :inputProps="{ autocomplete: 'on' }"
+          />
+          <label for="password">Password</label>
+        </FloatLabel>
+        <div v-if="errorMessage" class="pt-1 text-red-500">{{ errorMessage }}</div>
+        <p>
+          Already have an account?
+          <a>Log in.</a>
+        </p>
+        <Button class="mb-2" label="Sign up" type="submit"></Button>
+        <div class="css-1mkmswe">OR</div>
+        <Button class="my-3" @click="loginWithGoogle()" label="Continue with Google"></Button>
+      </div>
+    </form>
   </div>
 </template>
 <script setup lang="ts">

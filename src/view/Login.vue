@@ -1,26 +1,29 @@
 <template>
   <div class="center-container">
     <h1>Login</h1>
-    <div class="form-container">
-      <FloatLabel class="mt-4">
-        <InputText id="email" v-model="email" data-cy="email" :invalid="emailInvalid" />
-        <label for="email">Email</label>
-      </FloatLabel>
-      <FloatLabel class="mt-4">
-        <Password
-          id="password"
-          v-model="password"
-          :feedback="false"
-          data-cy="password"
-          :invalid="passwordInvalid"
-        />
-        <label for="password">Password</label>
-      </FloatLabel>
-      <div v-if="errorMessage" class="errorMsg mt-2">{{ errorMessage }}</div>
-      <Button class="my-3" data-cy="login" label="Login" @click="login"></Button>
-      <div class="css-1mkmswe">OR</div>
-      <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
-    </div>
+    <form @submit.prevent="login">
+      <div class="form-container">
+        <FloatLabel class="mt-4">
+          <InputText id="email" v-model="email" data-cy="email" :invalid="emailInvalid" />
+          <label for="email">Email</label>
+        </FloatLabel>
+        <FloatLabel class="mt-4">
+          <Password
+            id="password"
+            v-model="password"
+            :feedback="false"
+            data-cy="password"
+            :invalid="passwordInvalid"
+            :inputProps="{ autocomplete: 'on' }"
+          />
+          <label for="password">Password</label>
+        </FloatLabel>
+        <div v-if="errorMessage" class="errorMsg mt-2">{{ errorMessage }}</div>
+        <Button class="my-3" data-cy="login" label="Login" type="submit"></Button>
+        <div class="css-1mkmswe">OR</div>
+        <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
+      </div>
+    </form>
   </div>
 </template>
 
