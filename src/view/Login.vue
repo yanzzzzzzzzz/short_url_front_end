@@ -3,14 +3,20 @@
     <h1>Login</h1>
     <div class="form-container">
       <FloatLabel class="mt-4">
-        <InputText id="email" v-model="email" data-cy="email" />
+        <InputText id="email" v-model="email" data-cy="email" :invalid="emailInvalid" />
         <label for="email">Email</label>
       </FloatLabel>
       <FloatLabel class="mt-4">
-        <Password id="password" v-model="password" :feedback="false" data-cy="password" />
+        <Password
+          id="password"
+          v-model="password"
+          :feedback="false"
+          data-cy="password"
+          :invalid="passwordInvalid"
+        />
         <label for="password">Password</label>
       </FloatLabel>
-      <div v-if="errorMessage" class="errorMsg">{{ errorMessage }}</div>
+      <div v-if="errorMessage" class="errorMsg mt-2">{{ errorMessage }}</div>
       <Button class="my-3" data-cy="login" label="Login" @click="login"></Button>
       <div class="css-1mkmswe">OR</div>
       <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
@@ -34,6 +40,8 @@ const userStore = useUserStore();
 const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
+const emailInvalid = ref(false);
+const passwordInvalid = ref(false);
 
 const login = async () => {
   if (email.value && password.value) {
@@ -48,10 +56,13 @@ const login = async () => {
       }
       router.push({ name: 'home' });
     } catch (error) {
+      password.value = '';
       errorMessage.value = 'Incorrect email or password.';
     }
   } else {
-    errorMessage.value = 'Please enter both username and password.';
+    emailInvalid.value = email.value === '';
+    passwordInvalid.value = password.value === '';
+    errorMessage.value = "Email or password can't be null";
   }
 };
 
