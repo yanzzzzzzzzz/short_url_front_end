@@ -26,7 +26,8 @@ import {
   showLoginSuccessNotification,
   showTokenExpireNotification,
   showErrorNotification,
-  showAddUrlSuccessNotification
+  showAddUrlSuccessNotification,
+  showDeleteSuccessNotification
 } from '../utils/notifications';
 import { useMessageStore } from '../stores/MessageStore';
 import { transferIdModel } from '../utils/transfer';
@@ -43,8 +44,13 @@ const addUrl = (shortUrlModel: ShortUrlModel): void => {
 };
 
 const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
-  UrlStore.deleteUrl(urlObj);
-  const response = await urlService.deleteUrl(urlObj.shortUrl);
+  try {
+    await urlService.deleteUrl(urlObj.shortUrl);
+    UrlStore.deleteUrl(urlObj);
+    showDeleteSuccessNotification();
+  } catch (error) {
+    showErrorNotification(error.response.data.error);
+  }
 };
 
 const generateUrl = async (): Promise<void> => {

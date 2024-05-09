@@ -20,6 +20,10 @@ export const showCopySuccessNotification = () => {
   showNotification('Copy success', 'default');
 };
 
+export const showDeleteSuccessNotification = () => {
+  showNotification('Delete url success', 'default');
+};
+
 const showNotification = (message: string, type: ToastType) => {
   toast(message, {
     theme: 'auto',
