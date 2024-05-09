@@ -66,7 +66,7 @@ const editUrl = (urlObj: ShortUrlModel) => {
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
-  width: 800px;
+  width: 60%;
 }
 .icon-button {
   color: black;
