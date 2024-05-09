@@ -10,7 +10,9 @@
             '&size=64'
           "
         />
-        <span class="font-bold">{{ url.title }}</span>
+        <div class="overflow-ellipsis" style="width: 50%">
+          <span class="">{{ url.title }}</span>
+        </div>
       </div>
     </template>
     <template #icons>
@@ -85,5 +87,10 @@ a {
 }
 a:hover {
   text-decoration: underline !important;
+}
+.overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>
