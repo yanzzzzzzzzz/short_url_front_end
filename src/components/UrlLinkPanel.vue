@@ -78,9 +78,8 @@ const editUrl = (urlObj: ShortUrlModel) => {
 .icon-button:hover {
   background-color: #f0f0f0;
 }
-.p-panel::v-deep .p-panel-header {
+.p-panel::deep .p-panel-header {
   border-bottom: none;
-  background-color: white;
 }
 a {
   text-decoration: none !important;

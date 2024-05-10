@@ -29,8 +29,6 @@ const generateUrl = () => {
 </script>
 <style scoped>
 .shortUrlForm {
-  background-color: white;
-  color: black;
   text-align: left;
   padding: 2rem;
   display: inline-block;
