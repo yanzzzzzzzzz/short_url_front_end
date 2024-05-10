@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-2" style="text-align: center">
+  <div class="container pt-2">
     <UrlHeader />
     <UrlShortenForm
       v-model:url="url"
@@ -92,3 +92,11 @@ onMounted(async () => {
   }
 });
 </script>
+<style scoped>
+.container {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+}
+</style>

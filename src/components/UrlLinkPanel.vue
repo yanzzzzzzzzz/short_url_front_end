@@ -10,7 +10,7 @@
             '&size=64'
           "
         />
-        <div class="overflow-ellipsis" style="width: 50%">
+        <div class="overflow-ellipsis w-9">
           <span class="">{{ url.title }}</span>
         </div>
       </div>

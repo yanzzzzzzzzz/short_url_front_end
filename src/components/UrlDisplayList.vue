@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4" style="margin: auto 20rem">
+  <div class="mb-4">
     <h1 style="text-align: left">Links</h1>
     <hr />
     <div v-if="urlMap.length > 0" v-for="url in urlMap" :key="url.shortUrl">
