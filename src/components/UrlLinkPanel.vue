@@ -1,7 +1,7 @@
 <template>
   <Panel style="margin-top: 1rem; text-align: left">
     <template #header>
-      <div class="flex align-items-center gap-2">
+      <div class="flex align-items-center gap-2 w-9">
         <img
           style="height: 32px; width: 32px"
           :src="
@@ -10,7 +10,7 @@
             '&size=64'
           "
         />
-        <div class="overflow-ellipsis w-9">
+        <div class="overflow-ellipsis">
           <span class="">{{ url.title }}</span>
         </div>
       </div>
