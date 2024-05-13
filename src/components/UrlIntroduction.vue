@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="text-black"
-    style="background-color: #f5f7f8; min-height: 300px; padding: 100px 300px"
-  >
+  <div style="min-height: 300px; padding: 100px 300px">
     <h2>Squeeze more into every link.</h2>
     <div>
       With URLSqueezer, you can turn long and unwieldy URLs into short, snappy links that are easy

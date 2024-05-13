@@ -63,7 +63,7 @@ const editUrl = (urlObj: ShortUrlModel) => {
   text-decoration: underline !important;
 }
 .originalUrl-text {
-  color: black;
+  color: var(--text-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -71,7 +71,7 @@ const editUrl = (urlObj: ShortUrlModel) => {
   width: 60%;
 }
 .icon-button {
-  color: black;
+  color: var(--text-color);
   background-color: transparent;
   border: 0.1rem solid #c3cbdc;
 }

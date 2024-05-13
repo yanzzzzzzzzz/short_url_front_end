@@ -36,21 +36,4 @@ const generateUrl = () => {
   border-radius: 0.6rem;
   margin-bottom: 1rem;
 }
-/* input[type='text'] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  color: black;
-  background-color: transparent;
-  border: 1px solid #ced4da;
-  border-radius: 0.6rem;
-  outline: none;
-}
-
-input[type='text']::placeholder {
-  color: #aaa;
-}
-input[type='text']:focus {
-  border-color: #ccc;
-} */
 </style>

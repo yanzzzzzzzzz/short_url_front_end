@@ -89,7 +89,7 @@ const loginWithGoogle = async () => {
   display: grid;
   grid-template-columns: 1fr 0fr 1fr;
   gap: 1rem;
-  color: #3a4863;
+  color: var(--text-color);
   font-family: Proxima Nova;
   font-weight: 400;
   font-size: 1rem;
@@ -100,14 +100,14 @@ const loginWithGoogle = async () => {
   content: '';
   height: 0.0625rem;
   width: 100%;
-  background: #dbe0eb;
+  background: var(--text-color);
   margin: auto 0;
 }
 .css-1mkmswe::after {
   content: '';
   height: 0.0625rem;
   width: 100%;
-  background: #dbe0eb;
+  background: var(--text-color);
   margin: auto 0;
 }
 .errorMsg {
