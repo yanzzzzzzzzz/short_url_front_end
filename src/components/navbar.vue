@@ -6,15 +6,15 @@
       </router-link>
     </template>
     <template #end>
+      <button
+        class="border-1 border-solid cursor-pointer surface-card surface-border flex mr-2"
+        @click="switchMode"
+      >
+        <i :class="modeIcon"></i>
+      </button>
       <div v-if="userStore.user.username === ''">
         <router-link to="/login" class="mr-2"> Login </router-link>
         <router-link to="/signup" class="mr-2"> Signup </router-link>
-        <button
-          class="border-1 border-solid cursor-pointer surface-card surface-border"
-          @click="switchMode"
-        >
-          <i class="pi pi-sun"></i>
-        </button>
       </div>
       <div v-else>
         <Button label="Logout" @click="logout"></Button>
@@ -36,6 +36,7 @@ import { usePrimeVue } from 'primevue/config';
 import { ref } from 'vue';
 const PrimeVue = usePrimeVue();
 const currentTheme = ref('aura-dark-green');
+const modeIcon = ref('pi pi-sun');
 const userStore = useUserStore();
 const urlStore = useUrlStore();
 const logout = () => {
@@ -47,10 +48,12 @@ const switchMode = () => {
   console.log('change');
   if (currentTheme.value === 'aura-light-green') {
     PrimeVue.changeTheme('aura-light-green', 'aura-dark-green', 'theme-link', () => {});
+    modeIcon.value = 'pi pi-moon';
     currentTheme.value = 'aura-dark-green';
   } else if (currentTheme.value === 'aura-dark-green') {
     PrimeVue.changeTheme('aura-dark-green', 'aura-light-green', 'theme-link', () => {});
     currentTheme.value = 'aura-light-green';
+    modeIcon.value = 'pi pi-sun';
   }
 };
 </script>
@@ -64,5 +67,8 @@ a {
 }
 .surface-border {
   border-color: var(--surface-border) !important;
+}
+.surface-border:hover {
+  border-color: var(--primary-color) !important;
 }
 </style>
