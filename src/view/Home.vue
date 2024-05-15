@@ -2,7 +2,7 @@
   <div class="container pt-2">
     <UrlHeader />
     <UrlShortenForm />
-    <UrlDisplayList :urlMap="UrlStore.urls" @deleteUrl="deleteUrl" />
+    <UrlDisplayList :urlMap="UrlStore.urls" />
   </div>
   <UrlIntroduction />
 </template>
