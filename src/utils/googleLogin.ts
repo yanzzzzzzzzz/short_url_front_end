@@ -4,7 +4,7 @@ export const getGoogleOAuthURLSignUp = (promptOption: PromptOption) => {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
 
   const config = {
-    GoogleOAuthRedirectUrl: "http://localhost:4001/api/sessions/oauth/google/signup",
+    GoogleOAuthRedirectUrl: `${import.meta.env.VITE_PROXY_TARGET}/api/sessions/oauth/google/signup`,
     GoogleClientId: "393147601550-fikm3621o6j5ub41cntmnp3clh9uhhjf.apps.googleusercontent.com"
   }
   const options: {
@@ -33,7 +33,7 @@ export const getGoogleOAuthURLLogin = (promptOption: PromptOption) => {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
 
   const config = {
-    GoogleOAuthRedirectUrl: "http://localhost:4001/api/sessions/oauth/google/login",
+    GoogleOAuthRedirectUrl: `${import.meta.env.VITE_PROXY_TARGET}/api/sessions/oauth/google/login`,
     GoogleClientId: "393147601550-fikm3621o6j5ub41cntmnp3clh9uhhjf.apps.googleusercontent.com"
   }
   const options: {
