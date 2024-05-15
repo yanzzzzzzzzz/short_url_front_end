@@ -1,11 +1,7 @@
 <template>
   <div class="container pt-2">
     <UrlHeader />
-    <UrlShortenForm
-      v-model:url="url"
-      v-model:customShortUrl="customShortUrl"
-      @generateUrl="generateUrl"
-    />
+    <UrlShortenForm />
     <UrlDisplayList :urlMap="UrlStore.urls" @deleteUrl="deleteUrl" />
   </div>
   <UrlIntroduction />
@@ -26,22 +22,12 @@ import {
   showLoginSuccessNotification,
   showTokenExpireNotification,
   showErrorNotification,
-  showAddUrlSuccessNotification,
   showDeleteSuccessNotification
 } from '../utils/notifications';
-import { useMessageStore } from '../stores/MessageStore';
 import { transferIdModel } from '../utils/transfer';
 import { getCookie } from '../utils/cookie';
-const messageStore = useMessageStore();
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
-const url = ref('');
-const customShortUrl = ref('');
-
-const addUrl = (shortUrlModel: ShortUrlModel): void => {
-  UrlStore.addUrl(shortUrlModel);
-  showAddUrlSuccessNotification();
-};
 
 const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
   try {
@@ -50,20 +36,6 @@ const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
     showDeleteSuccessNotification();
   } catch (error) {
     showErrorNotification(error.response.data.error);
-  }
-};
-
-const generateUrl = async (): Promise<void> => {
-  try {
-    const shortUrlModel = await urlService.createShortUrl(url.value, customShortUrl.value);
-    addUrl({
-      ...shortUrlModel,
-      fullShortUrl: `${window.location.origin}/api/url/${shortUrlModel.shortUrl}`
-    });
-    url.value = '';
-    messageStore.setErrorMessage('');
-  } catch (error) {
-    messageStore.setErrorMessage(error.response.data.error);
   }
 };
 

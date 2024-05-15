@@ -17,14 +17,32 @@
 import { useMessageStore } from '../stores/MessageStore';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
-import { Ref } from 'vue';
-
+import { ref } from 'vue';
+import urlService from '../service/url';
+import { ShortUrlModel } from '../models/UrlModel';
+import { useUrlStore } from '../stores/UrlStore';
+import { showAddUrlSuccessNotification } from '../utils/notifications';
 const messageStore = useMessageStore();
-const url = defineModel('url') as Ref<string | undefined>;
-const customShortUrl = defineModel('customShortUrl') as Ref<string | undefined>;
-const emits = defineEmits(['generateUrl']);
-const generateUrl = () => {
-  emits('generateUrl');
+const url = ref('');
+const customShortUrl = ref('');
+const UrlStore = useUrlStore();
+
+const generateUrl = async (): Promise<void> => {
+  try {
+    const shortUrlModel = await urlService.createShortUrl(url.value, customShortUrl.value);
+    addUrl({
+      ...shortUrlModel,
+      fullShortUrl: `${window.location.origin}/api/url/${shortUrlModel.shortUrl}`
+    });
+    url.value = '';
+    messageStore.setErrorMessage('');
+  } catch (error) {
+    messageStore.setErrorMessage(error.response.data.error);
+  }
+};
+const addUrl = (shortUrlModel: ShortUrlModel): void => {
+  UrlStore.addUrl(shortUrlModel);
+  showAddUrlSuccessNotification();
 };
 </script>
 <style scoped>
