@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import urlService from '../service/url';
 import UrlDisplayList from '../components/UrlDisplayList.vue';
 import UrlShortenForm from '../components/UrlShortenForm.vue';

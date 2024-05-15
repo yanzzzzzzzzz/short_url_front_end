@@ -81,14 +81,5 @@ const updateUrl = async (originalShortUrl: string, newShortUrl: string, newTitle
     }
   }
 };
-
-const showUrlFormatted = (url: string) => {
-  const formatUrl = url.replace(/^(https?:\/\/)?/, '');
-  if (formatUrl.length > maxLength.value) {
-    return formatUrl.slice(0, maxLength.value) + '...';
-  } else {
-    return formatUrl;
-  }
-};
 </script>
 <style scoped></style>
