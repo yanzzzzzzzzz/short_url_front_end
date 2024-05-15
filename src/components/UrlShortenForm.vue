@@ -10,7 +10,13 @@
     <p>Customize your link(optional)</p>
     <InputText class="w-full" placeholder="Enter alias" v-model="customShortUrl" />
     <p style="color: red">{{ messageStore.getErrorMessage }}</p>
-    <Button class="mt-4 block" @click="generateUrl" data-cy="shortUrl" label="Shorten URL" />
+    <Button
+      class="mt-4 block"
+      @click="generateUrl"
+      data-cy="shortUrl"
+      label="Shorten URL"
+      :loading="loading"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -25,10 +31,12 @@ import { showAddUrlSuccessNotification } from '../utils/notifications';
 const messageStore = useMessageStore();
 const url = ref('');
 const customShortUrl = ref('');
+const loading = ref(false);
 const UrlStore = useUrlStore();
 
 const generateUrl = async (): Promise<void> => {
   try {
+    loading.value = true;
     const shortUrlModel = await urlService.createShortUrl(url.value, customShortUrl.value);
     addUrl({
       ...shortUrlModel,
@@ -36,8 +44,10 @@ const generateUrl = async (): Promise<void> => {
     });
     url.value = '';
     messageStore.setErrorMessage('');
+    loading.value = false;
   } catch (error) {
     messageStore.setErrorMessage(error.response.data.error);
+    loading.value = false;
   }
 };
 const addUrl = (shortUrlModel: ShortUrlModel): void => {
