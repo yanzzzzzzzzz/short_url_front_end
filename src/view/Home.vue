@@ -17,27 +17,15 @@ import UrlIntroduction from '../components/UrlIntroduction.vue';
 import { useUserStore } from '../stores/UserStore';
 import { useUrlStore } from '../stores/UrlStore';
 import 'vue3-toastify/dist/index.css';
-import { ShortUrlModel } from '../models/UrlModel';
 import {
   showLoginSuccessNotification,
   showTokenExpireNotification,
-  showErrorNotification,
-  showDeleteSuccessNotification
+  showErrorNotification
 } from '../utils/notifications';
 import { transferIdModel } from '../utils/transfer';
 import { getCookie } from '../utils/cookie';
 const userStore = useUserStore();
 const UrlStore = useUrlStore();
-
-const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
-  try {
-    await urlService.deleteUrl(urlObj.shortUrl);
-    UrlStore.deleteUrl(urlObj);
-    showDeleteSuccessNotification();
-  } catch (error) {
-    showErrorNotification(error.response.data.error);
-  }
-};
 
 onMounted(async () => {
   const name = getCookie('username');

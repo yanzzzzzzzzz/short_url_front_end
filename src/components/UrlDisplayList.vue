@@ -22,7 +22,11 @@
 import { ref } from 'vue';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
-import { showCopySuccessNotification } from '../utils/notifications';
+import {
+  showCopySuccessNotification,
+  showDeleteSuccessNotification,
+  showErrorNotification
+} from '../utils/notifications';
 import EditUrlDialog from './EditUrlDialog.vue';
 import urlService from '../service/url';
 import { useUrlStore } from '../stores/UrlStore';
@@ -40,8 +44,6 @@ const visible = ref(false);
 const nowEditTitle = ref('');
 const nowEditShortUrl = ref('');
 const nowEditSelectShortUrl = ref('');
-const emits = defineEmits(['deleteUrl']);
-const maxLength = ref(50);
 const invalid = ref(false);
 
 const copyUrl = (shortUrl: string) => {
@@ -50,9 +52,16 @@ const copyUrl = (shortUrl: string) => {
   });
 };
 
-const deleteUrl = (urlObj: ShortUrlModel) => {
-  emits('deleteUrl', urlObj);
+const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
+  try {
+    await urlService.deleteUrl(urlObj.shortUrl);
+    UrlStore.deleteUrl(urlObj);
+    showDeleteSuccessNotification();
+  } catch (error) {
+    showErrorNotification(error.response.data.error);
+  }
 };
+
 const editUrl = (urlObj: ShortUrlModel) => {
   nowEditTitle.value = urlObj.title;
   nowEditShortUrl.value = urlObj.shortUrl;
