@@ -41,22 +41,33 @@ import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import { CreateUserModel } from '../models/UserModel';
+import registerService from '../service/register';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 const emits = defineEmits(['createUser']);
 const email = ref('');
 const password = ref('');
 const username = ref('');
-const errorMessage = defineModel('errorMessage') as Ref<string | undefined>;
+const errorMessage = ref('');
 
 const loginWithGoogle = () => {
   window.location.href = getGoogleOAuthURLSignUp('consent');
 };
-const createUser = () => {
+
+const createUser = async () => {
   const newUser: CreateUserModel = {
     username: username.value,
     email: email.value,
     password: password.value
   };
-  emits('createUser', newUser);
+  try {
+    await registerService.createUser(newUser);
+    router.push({ name: 'home' });
+  } catch (error) {
+    console.log(error.response.data.error);
+    errorMessage.value = error.response.data.error;
+  }
 };
 </script>
 <style scoped>
