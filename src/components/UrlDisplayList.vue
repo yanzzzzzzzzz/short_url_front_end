@@ -13,8 +13,6 @@
       v-model:title="nowEditTitle"
       :shortUrl="nowEditShortUrl"
       v-model:nowEditSelectShortUrl="nowEditSelectShortUrl"
-      @updateUrl="updateUrl"
-      :invalid="invalid"
     />
   </div>
 </template>
@@ -30,7 +28,6 @@ import {
 import EditUrlDialog from './EditUrlDialog.vue';
 import urlService from '../service/url';
 import { useUrlStore } from '../stores/UrlStore';
-import { transferIdModel } from '../utils/transfer';
 import UrlLinkPanel from './UrlLinkPanel.vue';
 const UrlStore = useUrlStore();
 
@@ -44,7 +41,6 @@ const visible = ref(false);
 const nowEditTitle = ref('');
 const nowEditShortUrl = ref('');
 const nowEditSelectShortUrl = ref('');
-const invalid = ref(false);
 
 const copyUrl = (shortUrl: string) => {
   navigator.clipboard.writeText(shortUrl).then(() => {
@@ -66,29 +62,7 @@ const editUrl = (urlObj: ShortUrlModel) => {
   nowEditTitle.value = urlObj.title;
   nowEditShortUrl.value = urlObj.shortUrl;
   nowEditSelectShortUrl.value = urlObj.shortUrl;
-  invalid.value = false;
   visible.value = true;
-};
-const updateUrl = async (originalShortUrl: string, newShortUrl: string, newTitle: string) => {
-  try {
-    console.log(
-      'originalShortUrl:',
-      originalShortUrl,
-      'newShortUrl:',
-      newShortUrl,
-      'newTitle:',
-      newTitle
-    );
-    const data = await urlService.updateUrl(originalShortUrl, newShortUrl, newTitle);
-    console.log('response', data);
-    UrlStore.updateUrl(originalShortUrl, transferIdModel(data));
-    visible.value = false;
-  } catch (error) {
-    console.log('error', error);
-    if (error.response.status === 409) {
-      invalid.value = true;
-    }
-  }
 };
 </script>
 <style scoped></style>

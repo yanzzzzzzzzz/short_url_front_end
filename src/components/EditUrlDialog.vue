@@ -32,25 +32,38 @@
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import { ref, Ref } from 'vue';
+import { ref, Ref, onUpdated } from 'vue';
+import urlService from '../service/url';
+import { useUrlStore } from '../stores/UrlStore';
+import { transferIdModel } from '../utils/transfer';
+
+const UrlStore = useUrlStore();
+
 defineProps({
   shortUrl: {
     required: true,
     type: String
-  },
-  invalid: {
-    required: true,
-    type: Boolean
   }
 });
-const emits = defineEmits(['updateUrl']);
 
-const updateUrl = (
+const invalid = ref(false);
+onUpdated(() => {
+  invalid.value = false;
+});
+const updateUrl = async (
   originalShortUrl: string,
   newShortUrl: string | undefined,
   newTitle: string | undefined
 ) => {
-  emits('updateUrl', originalShortUrl, newShortUrl, newTitle);
+  try {
+    const data = await urlService.updateUrl(originalShortUrl, newShortUrl, newTitle);
+    UrlStore.updateUrl(originalShortUrl, transferIdModel(data));
+    visible.value = false;
+  } catch (error) {
+    if (error.response.status === 409) {
+      invalid.value = true;
+    }
+  }
 };
 
 const visible = defineModel('visible') as Ref<boolean | undefined>;

@@ -35,7 +35,7 @@ const deleteUrl = async (url) => {
   return response;
 };
 
-const updateUrl = async (shortUrl: string, newShortUrl: string, newTitle: string): Promise<ShortUrl> => {
+const updateUrl = async (shortUrl: string, newShortUrl: string | undefined, newTitle: string | undefined): Promise<ShortUrl> => {
   return (await apiClient.patch(`/${shortUrl}`, { newShortUrl, newTitle })).data;
 }
 
