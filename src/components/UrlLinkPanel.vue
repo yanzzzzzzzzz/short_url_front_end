@@ -34,12 +34,22 @@
         <a class="originalUrl-text" :href="url.originUrl" target="_blank">{{ url.originUrl }} </a>
       </div>
     </div>
+    <template #footer>
+      <div class="flex flex-wrap align-items-center justify-content-between gap-3">
+        <div class="flex align-items-center gap-2">
+          <Button icon="pi pi-calendar" rounded text></Button
+          >{{ moment(url.createTime).format('MMMM D, YYYY') }}
+        </div>
+        <span class="p-text-secondary">Updated 2 hours ago</span>
+      </div>
+    </template>
   </Panel>
 </template>
 <script setup lang="ts">
 import Button from 'primevue/button';
 import Panel from 'primevue/panel';
 import { ShortUrlModel } from '../models/UrlModel';
+import moment from 'moment';
 defineProps({
   url: {
     required: true,
