@@ -37,7 +37,22 @@
     <template #footer>
       <div class="flex flex-wrap align-items-center justify-content-between ml-5">
         <div class="flex align-items-center">
-          <Button icon="pi pi-calendar" rounded text></Button
+          <Button
+            icon="pi pi-calendar"
+            v-tooltip.bottom="{
+              value: moment(url.createTime).format('YYYY-MM-DD HH:mm:ss'),
+              pt: {
+                arrow: {
+                  style: {
+                    borderBottomColor: 'var(--primary-color)'
+                  }
+                },
+                text: 'bg-primary font-medium'
+              }
+            }"
+            rounded
+            text
+          ></Button
           >{{ moment(url.createTime).format('MMMM D, YYYY') }}
         </div>
         <span class="p-text-secondary">Updated 2 hours ago</span>

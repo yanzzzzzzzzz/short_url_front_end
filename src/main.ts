@@ -11,9 +11,11 @@ import PrimeVue from 'primevue/config';
 import "primeflex/primeflex.css";
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
+import Tooltip from 'primevue/tooltip';
 
 library.add(faCopy, faTrash, faLink, faEdit);
 const app = createApp(App);
+app.directive('tooltip', Tooltip);
 app.use(createPinia());
 app.use(router);
 app.component('font-awesome-icon', FontAwesomeIcon);
