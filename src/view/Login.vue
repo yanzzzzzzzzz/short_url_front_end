@@ -19,7 +19,13 @@
           <label for="password">Password</label>
         </FloatLabel>
         <div v-if="errorMessage" class="errorMsg mt-2">{{ errorMessage }}</div>
-        <Button class="my-3" data-cy="login" label="Login" type="submit"></Button>
+        <Button
+          class="my-3"
+          data-cy="login"
+          label="Login"
+          type="submit"
+          :loading="loading"
+        ></Button>
         <div class="css-1mkmswe">OR</div>
         <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
       </div>
@@ -45,10 +51,12 @@ const password = ref('');
 const errorMessage = ref('');
 const emailInvalid = ref(false);
 const passwordInvalid = ref(false);
+const loading = ref(false);
 
 const login = async () => {
   if (email.value && password.value) {
     try {
+      loading.value = true;
       await loginService.login({
         email: email.value,
         password: password.value
@@ -61,6 +69,7 @@ const login = async () => {
     } catch (error) {
       password.value = '';
       errorMessage.value = 'Incorrect email or password.';
+      loading.value = false;
     }
   } else {
     emailInvalid.value = email.value === '';

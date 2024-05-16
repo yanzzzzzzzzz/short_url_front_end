@@ -26,7 +26,7 @@
           Already have an account?
           <a>Log in.</a>
         </p>
-        <Button class="mb-2" label="Sign up" type="submit"></Button>
+        <Button class="mb-2" label="Sign up" type="submit" :loading="loading"></Button>
         <div class="css-1mkmswe">OR</div>
         <Button class="my-3" @click="loginWithGoogle()" label="Continue with Google"></Button>
       </div>
@@ -50,23 +50,26 @@ const email = ref('');
 const password = ref('');
 const username = ref('');
 const errorMessage = ref('');
+const loading = ref(false);
 
 const loginWithGoogle = () => {
   window.location.href = getGoogleOAuthURLSignUp('consent');
 };
 
 const createUser = async () => {
-  const newUser: CreateUserModel = {
-    username: username.value,
-    email: email.value,
-    password: password.value
-  };
   try {
+    loading.value = true;
+    const newUser: CreateUserModel = {
+      username: username.value,
+      email: email.value,
+      password: password.value
+    };
     await registerService.createUser(newUser);
     router.push({ name: 'home' });
   } catch (error) {
     console.log(error.response.data.error);
     errorMessage.value = error.response.data.error;
+    loading.value = false;
   }
 };
 </script>
