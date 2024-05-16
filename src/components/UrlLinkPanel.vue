@@ -1,9 +1,9 @@
 <template>
-  <Panel style="margin-top: 1rem; text-align: left">
+  <Panel class="mt-3 text-left">
     <template #header>
-      <div class="flex align-items-center gap-2 w-9">
+      <div class="flex align-items-center gap-2">
         <img
-          style="height: 32px; width: 32px"
+          style="height: 2.5rem; width: 2.5rem"
           :src="
             'https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=' +
             url.originUrl +
@@ -26,7 +26,7 @@
         <span class="pi pi-trash"></span>
       </Button>
     </template>
-    <div class="pl-3">
+    <div class="ml-6">
       <div>
         <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
       </div>
@@ -35,8 +35,8 @@
       </div>
     </div>
     <template #footer>
-      <div class="flex flex-wrap align-items-center justify-content-between gap-3">
-        <div class="flex align-items-center gap-2">
+      <div class="flex flex-wrap align-items-center justify-content-between ml-5">
+        <div class="flex align-items-center">
           <Button icon="pi pi-calendar" rounded text></Button
           >{{ moment(url.createTime).format('MMMM D, YYYY') }}
         </div>
