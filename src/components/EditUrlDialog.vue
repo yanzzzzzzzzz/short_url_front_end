@@ -24,6 +24,7 @@
         outlined
         severity="secondary"
         @click="updateUrl(shortUrl, nowEditSelectShortUrl, title)"
+        :loading="loading"
       />
     </template>
   </Dialog>
@@ -47,8 +48,10 @@ defineProps({
 });
 
 const invalid = ref(false);
+const loading = ref(false);
 onUpdated(() => {
   invalid.value = false;
+  loading.value = false;
 });
 const updateUrl = async (
   originalShortUrl: string,
@@ -56,6 +59,7 @@ const updateUrl = async (
   newTitle: string | undefined
 ) => {
   try {
+    loading.value = true;
     const data = await urlService.updateUrl(originalShortUrl, newShortUrl, newTitle);
     UrlStore.updateUrl(originalShortUrl, transferIdModel(data));
     visible.value = false;
@@ -63,6 +67,7 @@ const updateUrl = async (
     if (error.response.status === 409) {
       invalid.value = true;
     }
+    loading.value = true;
   }
 };
 
