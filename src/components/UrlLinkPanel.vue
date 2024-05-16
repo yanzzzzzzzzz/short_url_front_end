@@ -27,7 +27,7 @@
       </Button>
     </template>
     <div class="ml-6">
-      <div>
+      <div class="mb-3">
         <a :href="url.fullShortUrl" target="_blank">{{ url.fullShortUrl }}</a>
       </div>
       <div>
