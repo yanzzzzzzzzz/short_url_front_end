@@ -13,11 +13,15 @@
         <i :class="modeIcon"></i>
       </button>
       <div v-if="userStore.user.username === ''">
-        <router-link to="/login" class="mr-2"> Login </router-link>
-        <router-link to="/signup" class="mr-2"> Signup </router-link>
+        <router-link to="/login">
+          <Button label="Login" text></Button>
+        </router-link>
+        <router-link to="/signup">
+          <Button label="Signup" text></Button>
+        </router-link>
       </div>
       <div v-else>
-        <Button label="Logout" @click="logout"></Button>
+        <Button label="Logout" @click="logout" text></Button>
       </div>
     </template>
   </Toolbar>
