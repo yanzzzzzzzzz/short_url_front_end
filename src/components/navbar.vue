@@ -36,7 +36,7 @@ import { usePrimeVue } from 'primevue/config';
 import { ref } from 'vue';
 const PrimeVue = usePrimeVue();
 const currentTheme = ref('aura-dark-green');
-const modeIcon = ref('pi pi-sun');
+const modeIcon = ref('pi pi-moon');
 const userStore = useUserStore();
 const urlStore = useUrlStore();
 const logout = () => {
