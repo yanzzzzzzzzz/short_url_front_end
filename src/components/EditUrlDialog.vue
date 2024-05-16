@@ -17,6 +17,9 @@
         :invalid="invalid"
       />
     </div>
+    <div class="text-red-500">
+      {{ errorMessage }}
+    </div>
     <template #footer>
       <Button label="Cancel" text severity="secondary" @click="visible = false" />
       <Button
@@ -49,9 +52,11 @@ defineProps({
 
 const invalid = ref(false);
 const loading = ref(false);
+const errorMessage = ref('');
 onUpdated(() => {
   invalid.value = false;
   loading.value = false;
+  errorMessage.value = '';
 });
 const updateUrl = async (
   originalShortUrl: string,
@@ -67,8 +72,9 @@ const updateUrl = async (
   } catch (error) {
     if (error.response.status === 409) {
       invalid.value = true;
+      errorMessage.value = 'This short URL already exists. Please choose a different one.';
     }
-    loading.value = true;
+    loading.value = false;
   }
 };
 
