@@ -37,7 +37,7 @@ import { ref, Ref, onUpdated } from 'vue';
 import urlService from '../service/url';
 import { useUrlStore } from '../stores/UrlStore';
 import { transferIdModel } from '../utils/transfer';
-
+import { showUpdateSuccessNotification } from '../utils/notifications';
 const UrlStore = useUrlStore();
 
 defineProps({
@@ -63,6 +63,7 @@ const updateUrl = async (
     const data = await urlService.updateUrl(originalShortUrl, newShortUrl, newTitle);
     UrlStore.updateUrl(originalShortUrl, transferIdModel(data));
     visible.value = false;
+    showUpdateSuccessNotification();
   } catch (error) {
     if (error.response.status === 409) {
       invalid.value = true;

@@ -17,11 +17,15 @@ export const showLoginSuccessNotification = (username: string) => {
 };
 
 export const showCopySuccessNotification = () => {
-  showNotification('Copy success', 'default');
+  showNotification('Copy success', 'success');
 };
 
 export const showDeleteSuccessNotification = () => {
   showNotification('Delete url success', 'default');
+};
+
+export const showUpdateSuccessNotification = () => {
+  showNotification('Update success', 'success');
 };
 
 const showNotification = (message: string, type: ToastType) => {
