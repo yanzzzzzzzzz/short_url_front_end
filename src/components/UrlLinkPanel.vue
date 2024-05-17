@@ -38,7 +38,7 @@
       <div class="flex flex-wrap align-items-center justify-content-between ml-5">
         <div class="flex align-items-center">
           <Button icon="pi pi-calendar" v-tooltip.bottom="tooltipConfig" rounded text></Button
-          >{{ moment(url.createTime).format('MMMM D, YYYY') }}
+          >{{ moment.utc(url.createTime).local().format('MMMM D, YYYY') }}
         </div>
         <span class="p-text-secondary">Updated 2 hours ago</span>
       </div>
@@ -59,7 +59,7 @@ const props = defineProps({
 });
 const emits = defineEmits(['deleteUrl', 'copyUrl', 'editUrl']);
 const tooltipConfig = ref({
-  value: moment(props.url.createTime).format('YYYY-MM-DD HH:mm:ss'),
+  value: moment.utc(props.url.createTime).local().format('YYYY-MM-DD HH:mm:ss'),
   pt: {
     arrow: {
       style: {
