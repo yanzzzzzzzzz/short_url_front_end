@@ -1,23 +1,9 @@
 <template>
   <div class="mb-4">
     <h1 class="text-left">Links</h1>
-    <div class="text-left">
-      <IconField iconPosition="left">
-        <InputIcon class="pi pi-search"> </InputIcon>
-        <InputText type="search" placeholder="Search..." v-model="searchKeyword"></InputText>
-      </IconField>
-    </div>
+    <SearchBar v-model:searchKeyword="searchKeyword" />
     <hr />
-    <div
-      v-if="urlMapSearchKeyword.length > 0"
-      v-for="url in urlMapSearchKeyword"
-      :key="url.shortUrl"
-    >
-      <UrlLinkPanel :url="url" @copyUrl="copyUrl" @editUrl="editUrl" @deleteUrl="deleteUrl" />
-    </div>
-    <div v-else style="display: flex; justify-content: center">
-      <p>no link here.</p>
-    </div>
+    <UrlList :urls="urlMapSearchKeyword" @editUrl="editUrl" />
     <EditUrlDialog
       v-model:visible="visible"
       v-model:title="nowEditTitle"
@@ -30,21 +16,10 @@
 import { ref, computed } from 'vue';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
-import {
-  showCopySuccessNotification,
-  showDeleteSuccessNotification,
-  showErrorNotification
-} from '../utils/notifications';
-import EditUrlDialog from './EditUrlDialog.vue';
-import urlService from '../service/url';
-import { useUrlStore } from '../stores/UrlStore';
-import UrlLinkPanel from './UrlLinkPanel.vue';
-import InputText from 'primevue/inputtext';
-import { ShortUrl } from '../models/UrlModel';
-import IconField from 'primevue/iconfield';
-import InputIcon from 'primevue/inputicon';
-const UrlStore = useUrlStore();
 
+import EditUrlDialog from './EditUrlDialog.vue';
+import UrlList from './UrlList.vue';
+import SearchBar from './SearchBar.vue';
 const props = defineProps({
   urlMap: {
     required: true,
@@ -62,26 +37,11 @@ const urlMapSearchKeyword = computed(() => {
   if (searchKeyword.value === '') {
     return props.urlMap;
   } else {
-    return props.urlMap.filter((url: ShortUrl) =>
+    return props.urlMap.filter((url: ShortUrlModel) =>
       url.title.toLowerCase().includes(searchKeyword.value.toLowerCase())
     );
   }
 });
-const copyUrl = (shortUrl: string) => {
-  navigator.clipboard.writeText(shortUrl).then(() => {
-    showCopySuccessNotification();
-  });
-};
-
-const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
-  try {
-    await urlService.deleteUrl(urlObj.shortUrl);
-    UrlStore.deleteUrl(urlObj);
-    showDeleteSuccessNotification();
-  } catch (error) {
-    showErrorNotification(error.response.data.error);
-  }
-};
 
 const editUrl = (urlObj: ShortUrlModel) => {
   nowEditTitle.value = urlObj.title;
