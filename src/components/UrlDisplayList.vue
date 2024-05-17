@@ -1,9 +1,9 @@
 <template>
   <div class="mb-4">
     <h1 class="text-left">Links</h1>
-    <SearchBar v-model:searchKeyword="searchKeyword" />
+    <SearchBar v-model:searchKeyword="searchKeyword" @search="search" />
     <hr />
-    <UrlList :urls="urlMapSearchKeyword" @editUrl="editUrl" />
+    <UrlList :urls="UrlStore.getUrls" @editUrl="editUrl" />
     <EditUrlDialog
       v-model:visible="visible"
       v-model:title="nowEditTitle"
@@ -20,6 +20,12 @@ import { ShortUrlModel } from '../models/UrlModel';
 import EditUrlDialog from './EditUrlDialog.vue';
 import UrlList from './UrlList.vue';
 import SearchBar from './SearchBar.vue';
+import urlService from '../service/url';
+import { useUrlStore } from '../stores/UrlStore';
+import { transferIdModel } from '../utils/transfer';
+
+const UrlStore = useUrlStore();
+
 const props = defineProps({
   urlMap: {
     required: true,
@@ -33,15 +39,10 @@ const nowEditShortUrl = ref('');
 const nowEditSelectShortUrl = ref('');
 const searchKeyword = ref('');
 
-const urlMapSearchKeyword = computed(() => {
-  if (searchKeyword.value === '') {
-    return props.urlMap;
-  } else {
-    return props.urlMap.filter((url: ShortUrlModel) =>
-      url.title.toLowerCase().includes(searchKeyword.value.toLowerCase())
-    );
-  }
-});
+const search = async () => {
+  const data = await urlService.getAllUrl(searchKeyword.value);
+  UrlStore.setUrl(data.map((item) => transferIdModel(item)));
+};
 
 const editUrl = (urlObj: ShortUrlModel) => {
   nowEditTitle.value = urlObj.title;

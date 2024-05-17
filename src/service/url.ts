@@ -25,8 +25,10 @@ const createShortUrl = async (url: string, customShortUrl: string): Promise<Shor
   return response.data;
 };
 
-const getAllUrl = async (): Promise<Array<ShortUrlWithIdModel>> => {
-  const response = await apiClient.get('/');
+const getAllUrl = async (searchKeyword?: string): Promise<Array<ShortUrlWithIdModel>> => {
+  const response = await apiClient.get('/', {
+    params: { searchKeyword }
+  });
   return response.data;
 };
 
