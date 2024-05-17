@@ -27,7 +27,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, computed, PropType } from 'vue';
+import { ref, computed } from 'vue';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import {
