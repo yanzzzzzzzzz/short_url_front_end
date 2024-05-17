@@ -1,8 +1,18 @@
 <template>
   <div class="mb-4">
-    <h1 style="text-align: left">Links</h1>
+    <h1 class="text-left">Links</h1>
+    <div class="text-left">
+      <IconField iconPosition="left">
+        <InputIcon class="pi pi-search"> </InputIcon>
+        <InputText type="search" placeholder="Search..." v-model="searchKeyword"></InputText>
+      </IconField>
+    </div>
     <hr />
-    <div v-if="urlMap.length > 0" v-for="url in urlMap" :key="url.shortUrl">
+    <div
+      v-if="urlMapSearchKeyword.length > 0"
+      v-for="url in urlMapSearchKeyword"
+      :key="url.shortUrl"
+    >
       <UrlLinkPanel :url="url" @copyUrl="copyUrl" @editUrl="editUrl" @deleteUrl="deleteUrl" />
     </div>
     <div v-else style="display: flex; justify-content: center">
@@ -17,7 +27,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, PropType } from 'vue';
 import 'vue3-toastify/dist/index.css';
 import { ShortUrlModel } from '../models/UrlModel';
 import {
@@ -29,19 +39,34 @@ import EditUrlDialog from './EditUrlDialog.vue';
 import urlService from '../service/url';
 import { useUrlStore } from '../stores/UrlStore';
 import UrlLinkPanel from './UrlLinkPanel.vue';
+import InputText from 'primevue/inputtext';
+import { ShortUrl } from '../models/UrlModel';
+import IconField from 'primevue/iconfield';
+import InputIcon from 'primevue/inputicon';
 const UrlStore = useUrlStore();
 
-defineProps({
+const props = defineProps({
   urlMap: {
     required: true,
     type: Object
   }
 });
+
 const visible = ref(false);
 const nowEditTitle = ref('');
 const nowEditShortUrl = ref('');
 const nowEditSelectShortUrl = ref('');
+const searchKeyword = ref('');
 
+const urlMapSearchKeyword = computed(() => {
+  if (searchKeyword.value === '') {
+    return props.urlMap;
+  } else {
+    return props.urlMap.filter((url: ShortUrl) =>
+      url.title.toLowerCase().includes(searchKeyword.value.toLowerCase())
+    );
+  }
+});
 const copyUrl = (shortUrl: string) => {
   navigator.clipboard.writeText(shortUrl).then(() => {
     showCopySuccessNotification();
