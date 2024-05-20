@@ -41,7 +41,8 @@ const searchKeyword = ref('');
 
 const search = async () => {
   const data = await urlService.getAllUrl(searchKeyword.value);
-  UrlStore.setUrl(data.map((item) => transferIdModel(item)));
+
+  UrlStore.setUrl(data.content.map((item) => transferIdModel(item)));
 };
 
 const editUrl = (urlObj: ShortUrlModel) => {

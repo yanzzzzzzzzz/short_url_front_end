@@ -18,4 +18,15 @@ export interface ShortUrl {
   user: string;
 }
 
+export interface pageModel {
+  page: number;
+  size: number;
+  hasNext: boolean;
+  pageCount: number;
+}
+
+export interface ShortUrlPageMode {
+  content: Array<ShortUrl>;
+  pagination: pageModel
+}
 export type ShortUrlModel = Omit<ShortUrlWithIdModel, 'Id'>;

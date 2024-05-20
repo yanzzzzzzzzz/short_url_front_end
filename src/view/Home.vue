@@ -36,7 +36,7 @@ onMounted(async () => {
   if (userStore.user.username !== '') {
     try {
       const data = await urlService.getAllUrl();
-      UrlStore.setUrl(data.map((item) => transferIdModel(item)));
+      UrlStore.setUrl(data.content.map((item) => transferIdModel(item)));
       showLoginSuccessNotification(userStore.user.username);
     } catch (error) {
       if (error.response.status === 401) {

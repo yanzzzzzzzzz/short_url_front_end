@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useUserStore } from '../stores/UserStore';
-import { ShortUrl, ShortUrlModel, ShortUrlWithIdModel } from '../models/UrlModel';
+import { ShortUrl, ShortUrlModel, ShortUrlPageMode } from '../models/UrlModel';
 const API_BASE_URL = '/api/url';
 
 const apiClient = axios.create({
@@ -25,7 +25,7 @@ const createShortUrl = async (url: string, customShortUrl: string): Promise<Shor
   return response.data;
 };
 
-const getAllUrl = async (searchKeyword?: string): Promise<Array<ShortUrlWithIdModel>> => {
+const getAllUrl = async (searchKeyword?: string): Promise<ShortUrlPageMode> => {
   const response = await apiClient.get('/', {
     params: { searchKeyword }
   });
