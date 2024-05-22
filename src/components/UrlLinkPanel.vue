@@ -112,5 +112,6 @@ a:hover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  max-width: 700px;
 }
 </style>
