@@ -2,55 +2,18 @@
   <div class="container pt-2">
     <UrlHeader />
     <UrlShortenForm />
-    <UrlDisplayList :urlMap="UrlStore.urls" />
+    <UrlDisplayList />
   </div>
   <UrlIntroduction />
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import urlService from '../service/url';
 import UrlDisplayList from '../components/UrlDisplayList.vue';
 import UrlShortenForm from '../components/UrlShortenForm.vue';
 import UrlHeader from '../components/UrlHeader.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
-import { useUserStore } from '../stores/UserStore';
-import { useUrlStore } from '../stores/UrlStore';
+
 import 'vue3-toastify/dist/index.css';
-import {
-  showLoginSuccessNotification,
-  showTokenExpireNotification,
-  showErrorNotification
-} from '../utils/notifications';
-import { transferIdModel } from '../utils/transfer';
-import { getCookie } from '../utils/cookie';
-const userStore = useUserStore();
-const UrlStore = useUrlStore();
-
-onMounted(async () => {
-  const name = getCookie('username');
-  if (name !== '') {
-    userStore.setUser({ username: name });
-  }
-
-  if (userStore.user.username !== '') {
-    try {
-      const data = await urlService.getAllUrl();
-      UrlStore.setUrl(data.content.map((item) => transferIdModel(item)));
-      showLoginSuccessNotification(userStore.user.username);
-    } catch (error) {
-      if (error.response.status === 401) {
-        showTokenExpireNotification();
-        localStorage.removeItem('loginInfo');
-        userStore.setUser({
-          username: ''
-        });
-      } else {
-        showErrorNotification(error.response.data.error);
-      }
-    }
-  }
-});
 </script>
 <style scoped>
 .container {

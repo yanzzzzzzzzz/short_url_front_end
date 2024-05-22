@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useUserStore } from '../stores/UserStore';
 import { ShortUrl, ShortUrlModel, ShortUrlPageMode } from '../models/UrlModel';
+import { PageInfoModel } from '../models/CommonModel'
 const API_BASE_URL = '/api/url';
 
 const apiClient = axios.create({
@@ -9,10 +9,6 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const userStore = useUserStore();
-    if (userStore.user.token) {
-      config.headers.Authorization = `Bearer ${userStore.user.token}`;
-    }
     return config;
   },
   (error) => {
@@ -25,9 +21,9 @@ const createShortUrl = async (url: string, customShortUrl: string): Promise<Shor
   return response.data;
 };
 
-const getAllUrl = async (searchKeyword?: string): Promise<ShortUrlPageMode> => {
+const getAllUrl = async (searchKeyword?: string, pageInfo?: PageInfoModel): Promise<ShortUrlPageMode> => {
   const response = await apiClient.get('/', {
-    params: { searchKeyword }
+    params: { searchKeyword, page: pageInfo?.page, pageSize: pageInfo?.rows }
   });
   return response.data;
 };
