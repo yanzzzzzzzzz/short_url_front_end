@@ -39,7 +39,7 @@ import { ref } from 'vue';
 import router from '../router';
 import { useUserStore } from '../stores/UserStore';
 import { getCookie } from '../utils/cookie';
-import { getGoogleOAuthURLLogin } from '../utils/googleLogin';
+import { getGoogleOAuthURLAuth } from '../utils/googleLogin';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
@@ -79,7 +79,7 @@ const login = async () => {
 };
 
 const loginWithGoogle = async () => {
-  window.location.href = getGoogleOAuthURLLogin('select_account');
+  window.location.href = getGoogleOAuthURLAuth('select_account');
 };
 </script>
 <style scoped>

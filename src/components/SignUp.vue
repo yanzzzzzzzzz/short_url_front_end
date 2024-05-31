@@ -34,7 +34,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { getGoogleOAuthURLSignUp } from '../utils/googleLogin';
+import { getGoogleOAuthURLAuth } from '../utils/googleLogin';
 import { ref, Ref } from 'vue';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
@@ -53,7 +53,7 @@ const errorMessage = ref('');
 const loading = ref(false);
 
 const loginWithGoogle = () => {
-  window.location.href = getGoogleOAuthURLSignUp('consent');
+  window.location.href = getGoogleOAuthURLAuth('consent');
 };
 
 const createUser = async () => {
