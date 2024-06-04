@@ -6,12 +6,9 @@
       </router-link>
     </template>
     <template #end>
-      <button
-        class="border-1 border-solid cursor-pointer surface-card surface-border flex mr-2"
-        @click="switchMode"
-      >
+      <Button class="mr-4" @click="switchMode">
         <i :class="modeIcon"></i>
-      </button>
+      </Button>
       <div v-if="userStore.user.username === ''">
         <router-link to="/login">
           <Button label="Login" text></Button>
@@ -21,7 +18,9 @@
         </router-link>
       </div>
       <div v-else>
-        <Button label="Logout" @click="logout" text></Button>
+        <Button @click="logout">
+          <i class="pi pi-sign-out"></i>
+        </Button>
       </div>
     </template>
   </Toolbar>
