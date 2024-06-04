@@ -5,7 +5,7 @@ export const getGoogleOAuthURLAuth = (promptOption: PromptOption) => {
 
   const config = {
     GoogleOAuthRedirectUrl: `${import.meta.env.VITE_PROXY_TARGET}/api/sessions/oauth/google/auth`,
-    GoogleClientId: "393147601550-fikm3621o6j5ub41cntmnp3clh9uhhjf.apps.googleusercontent.com"
+    GoogleClientId: import.meta.env.VITE_GOOGLE_CLIENT_ID
   }
   const options: {
     redirect_uri?: string;
@@ -16,7 +16,7 @@ export const getGoogleOAuthURLAuth = (promptOption: PromptOption) => {
     scope: string;
   } = {
     redirect_uri: config.GoogleOAuthRedirectUrl,
-    client_id: config.GoogleClientId as string,
+    client_id: config.GoogleClientId,
     access_type: 'offline',
     response_type: 'code',
     prompt: promptOption,

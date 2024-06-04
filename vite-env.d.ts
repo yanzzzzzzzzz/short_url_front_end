@@ -1,5 +1,10 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  VITE_PROXY_TARGET: string;
+  readonly VITE_PROXY_TARGET: string;
+  readonly VITE_GOOGLE_CLIENT_ID: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }
