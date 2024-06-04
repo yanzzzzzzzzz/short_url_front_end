@@ -27,6 +27,7 @@ import { ref } from 'vue';
 import urlService from '../service/url';
 import { ShortUrlModel } from '../models/UrlModel';
 import { useUrlStore } from '../stores/UrlStore';
+import { useUserStore } from '../stores/UserStore';
 import { showAddUrlSuccessNotification } from '../utils/notifications';
 const messageStore = useMessageStore();
 const url = ref('');
@@ -34,15 +35,20 @@ const customShortUrl = ref('');
 const loading = ref(false);
 const UrlStore = useUrlStore();
 const emits = defineEmits(['fetchData']);
+const userStore = useUserStore();
 
 const generateUrl = async (): Promise<void> => {
   try {
     loading.value = true;
+
     const shortUrlModel = await urlService.createShortUrl(url.value, customShortUrl.value);
-    addUrl({
-      ...shortUrlModel,
-      fullShortUrl: `${window.location.origin}/api/url/${shortUrlModel.shortUrl}`
-    });
+    if (userStore.user.username === '') {
+      addUrl({
+        ...shortUrlModel,
+        fullShortUrl: `${window.location.origin}/api/url/${shortUrlModel.shortUrl}`
+      });
+      return;
+    }
     url.value = '';
     emits('fetchData');
     messageStore.setErrorMessage('');
