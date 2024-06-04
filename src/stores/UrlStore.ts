@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ShortUrlModel } from '../models/UrlModel';
 export const useUrlStore = defineStore('UrlStore', {
   state: (): { urls: Array<ShortUrlModel> } => ({
-    urls: []
+    urls: [],
   }),
   actions: {
     setUrl(urlList: Array<ShortUrlModel>) {
