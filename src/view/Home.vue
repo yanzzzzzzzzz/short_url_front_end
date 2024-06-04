@@ -1,16 +1,10 @@
 <template>
-  <div class="container pt-2">
-    <UrlHeader />
-    <UrlShortenForm />
-    <UrlDisplayList />
-  </div>
+  <UrlManager />
   <UrlIntroduction />
 </template>
 
 <script setup lang="ts">
-import UrlDisplayList from '../components/UrlDisplayList.vue';
-import UrlShortenForm from '../components/UrlShortenForm.vue';
-import UrlHeader from '../components/UrlHeader.vue';
+import UrlManager from '../components/UrlManager.vue';
 import UrlIntroduction from '../components/UrlIntroduction.vue';
 
 import 'vue3-toastify/dist/index.css';

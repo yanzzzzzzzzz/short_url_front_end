@@ -1,0 +1,79 @@
+<template>
+  <div class="container pt-2">
+    <UrlHeader />
+    <UrlShortenForm @fetchData="fetchData" />
+    <h1 class="text-left">Links</h1>
+    <SearchBar v-model:searchKeyword="searchKeyword" @search="fetchData" />
+    <hr />
+    <UrlDisplayList />
+    <Paginator
+      v-if="userStore.user.username !== '' && UrlStore.getUrls.length > 0"
+      v-model="pageInfo"
+      @page="onPage($event)"
+      :rows="PageInitRows"
+      :totalRecords="messageCount"
+      :rowsPerPageOptions="[1, 2, 3]"
+    ></Paginator>
+  </div>
+</template>
+<script setup lang="ts">
+import UrlHeader from './UrlHeader.vue';
+import UrlDisplayList from './UrlDisplayList.vue';
+import UrlShortenForm from './UrlShortenForm.vue';
+import SearchBar from './SearchBar.vue';
+import Paginator from 'primevue/paginator';
+import { useUrlStore } from '../stores/UrlStore';
+import { useUserStore } from '../stores/UserStore';
+import { ref, onMounted } from 'vue';
+import urlService from '../service/url';
+import { PageInfoModel } from '../models/CommonModel';
+import { transferIdModel } from '../utils/transfer';
+import { getCookie } from '../utils/cookie';
+import {
+  showLoginSuccessNotification,
+  showTokenExpireNotification,
+  showErrorNotification
+} from '../utils/notifications';
+
+const messageCount = ref<number>(0);
+const pageInfo = ref<PageInfoModel>({ page: 0, first: 0, rows: 1, pageCount: 0 });
+const UrlStore = useUrlStore();
+const userStore = useUserStore();
+const PageInitRows = ref<number>(1);
+const searchKeyword = ref<string>('');
+
+const fetchData = async () => {
+  if (userStore.user.username === '') {
+    return;
+  }
+  const data = await urlService.getAllUrl(searchKeyword.value, pageInfo.value);
+  messageCount.value = data.pagination.pageCount * data.pagination.size;
+  UrlStore.setUrl(data.content.map((item) => transferIdModel(item)));
+};
+onMounted(async () => {
+  const name = getCookie('username');
+  if (name !== '') {
+    userStore.setUser({ username: name });
+  }
+
+  if (userStore.user.username !== '') {
+    try {
+      fetchData();
+      showLoginSuccessNotification(userStore.user.username);
+    } catch (error) {
+      if (error.response.status === 401) {
+        showTokenExpireNotification();
+        userStore.setUser({
+          username: ''
+        });
+      } else {
+        showErrorNotification(error.response.data.error);
+      }
+    }
+  }
+});
+async function onPage(event: PageInfoModel) {
+  pageInfo.value = event;
+  fetchData();
+}
+</script>

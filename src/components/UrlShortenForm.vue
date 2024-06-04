@@ -33,6 +33,7 @@ const url = ref('');
 const customShortUrl = ref('');
 const loading = ref(false);
 const UrlStore = useUrlStore();
+const emits = defineEmits(['fetchData']);
 
 const generateUrl = async (): Promise<void> => {
   try {
@@ -43,6 +44,7 @@ const generateUrl = async (): Promise<void> => {
       fullShortUrl: `${window.location.origin}/api/url/${shortUrlModel.shortUrl}`
     });
     url.value = '';
+    emits('fetchData');
     messageStore.setErrorMessage('');
     loading.value = false;
   } catch (error) {
