@@ -40,7 +40,7 @@
           <Button icon="pi pi-calendar" v-tooltip.bottom="tooltipConfig" rounded text></Button
           >{{ moment.utc(url.createTime).local().format('MMMM D, YYYY') }}
         </div>
-        <span class="p-text-secondary">Updated 2 hours ago</span>
+        <span class="p-text-secondary">Updated {{ imshowUpdateTime(url.updateTime) }}</span>
       </div>
     </template>
   </Panel>
@@ -77,6 +77,35 @@ const copyUrl = (shortUrl: string) => {
 };
 const editUrl = (urlObj: ShortUrlModel) => {
   emits('editUrl', urlObj);
+};
+const imshowUpdateTime = (updateDate: string) => {
+  const now = new Date();
+  const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000);
+  const date = new Date(updateDate);
+  const difference = utcNow.getTime() - date.getTime();
+  const seconds = Math.floor(difference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(seconds / 3600 / 24);
+  const years = Math.floor(days / 365);
+  const months = Math.floor((days % 365) / 30);
+
+  const rtf = new Intl.RelativeTimeFormat('en', {
+    localeMatcher: 'best fit',
+    numeric: 'always',
+    style: 'long'
+  });
+  if (years > 0) {
+    return rtf.format(-years, 'year');
+  } else if (months > 0) {
+    return rtf.format(-months, 'month');
+  } else if (days > 0) {
+    return rtf.format(-days, 'day');
+  } else if (hours > 0) {
+    return rtf.format(-hours, 'hour');
+  } else {
+    return rtf.format(-minutes, 'minute');
+  }
 };
 </script>
 <style scoped>

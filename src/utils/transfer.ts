@@ -7,6 +7,8 @@ export const transferIdModel = (urlObject: ShortUrl | ShortUrlWithIdModel): Shor
     fullShortUrl: `${window.location.origin}/api/url/${urlObject.shortUrl}`,
     previewImage: urlObject.previewImage,
     createTime: urlObject.createTime,
-    title: urlObject.title
+    title: urlObject.title,
+    updateTime: urlObject.updateTime,
+    expiredTime: urlObject.expiredTime,
   };
 };

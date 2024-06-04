@@ -6,6 +6,8 @@ export interface ShortUrlWithIdModel {
   createTime: string;
   previewImage: string;
   title: string;
+  updateTime: string;
+  expiredTime: string;
 }
 
 export interface ShortUrl {
@@ -16,6 +18,8 @@ export interface ShortUrl {
   shortUrl: string;
   title: string;
   user: string;
+  updateTime: string;
+  expiredTime: string;
 }
 
 export interface pageModel {
