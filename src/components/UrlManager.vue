@@ -58,7 +58,7 @@ onMounted(async () => {
 
   if (userStore.user.username !== '') {
     try {
-      fetchData();
+      await fetchData();
       showLoginSuccessNotification(userStore.user.username);
     } catch (error) {
       if (error.response.status === 401) {
