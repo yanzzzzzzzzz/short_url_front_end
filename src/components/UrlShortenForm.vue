@@ -50,7 +50,7 @@ const generateUrl = async (): Promise<void> => {
       return;
     }
     url.value = '';
-    emits('fetchData');
+    await emits('fetchData');
     messageStore.setErrorMessage('');
     loading.value = false;
   } catch (error) {
