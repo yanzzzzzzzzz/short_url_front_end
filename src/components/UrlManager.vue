@@ -43,6 +43,8 @@ const PageInitRows = ref<number>(1);
 const searchKeyword = ref<string>('');
 
 const fetchData = async () => {
+  console.log('userStore.user.username', userStore.user.username);
+
   if (userStore.user.username === '') {
     return;
   }
@@ -55,17 +57,17 @@ onMounted(async () => {
   if (name !== '') {
     userStore.setUser({ username: name });
   }
-
   if (userStore.user.username !== '') {
     try {
       await fetchData();
       showLoginSuccessNotification(userStore.user.username);
     } catch (error) {
       if (error.response.status === 401) {
+        console.log('token expired error');
+
         showTokenExpireNotification();
-        userStore.setUser({
-          username: ''
-        });
+        userStore.clearUser();
+        UrlStore.clearUrl();
       } else {
         showErrorNotification(error.response.data.error);
       }
@@ -73,7 +75,13 @@ onMounted(async () => {
   }
 });
 async function onPage(event: PageInfoModel) {
-  pageInfo.value = event;
-  fetchData();
+  try {
+    pageInfo.value = event;
+    await fetchData();
+  } catch {
+    showErrorNotification('Session has expired. Please log in again to continue.');
+    userStore.clearUser();
+    UrlStore.clearUrl();
+  }
 }
 </script>
