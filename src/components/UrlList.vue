@@ -23,7 +23,7 @@ import { useUrlStore } from '../stores/UrlStore';
 defineProps<{
   urls: ShortUrlModel[];
 }>();
-const emits = defineEmits(['editUrl']);
+const emits = defineEmits(['editUrl', 'fetchData']);
 
 const UrlStore = useUrlStore();
 
@@ -36,7 +36,7 @@ const copyUrl = (shortUrl: string) => {
 const deleteUrl = async (urlObj: ShortUrlModel): Promise<void> => {
   try {
     await urlService.deleteUrl(urlObj.shortUrl);
-    UrlStore.deleteUrl(urlObj);
+    await emits('fetchData');
     showDeleteSuccessNotification();
   } catch (error) {
     showErrorNotification(error.response.data.error);

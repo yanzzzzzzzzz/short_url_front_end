@@ -5,7 +5,7 @@
     <h1 class="text-left">Links</h1>
     <SearchBar v-model:searchKeyword="searchKeyword" @search="fetchData" />
     <hr />
-    <UrlDisplayList />
+    <UrlDisplayList @fetchData="fetchData" />
     <Paginator
       v-if="userStore.user.username !== '' && UrlStore.getUrls.length > 0"
       v-model="pageInfo"
@@ -42,9 +42,10 @@ const userStore = useUserStore();
 const PageInitRows = ref<number>(1);
 const searchKeyword = ref<string>('');
 
-const fetchData = async () => {
-  console.log('userStore.user.username', userStore.user.username);
-
+const fetchData = async (goToFirstPage: boolean = false) => {
+  if (goToFirstPage) {
+    pageInfo.value.page = 0;
+  }
   if (userStore.user.username === '') {
     return;
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <UrlList :urls="UrlStore.getUrls" @editUrl="editUrl" />
+    <UrlList :urls="UrlStore.getUrls" @editUrl="editUrl" @fetchData="fetchData" />
     <EditUrlDialog
       v-model:visible="visible"
       v-model:title="nowEditTitle"
@@ -22,12 +22,16 @@ const visible = ref(false);
 const nowEditTitle = ref('');
 const nowEditShortUrl = ref('');
 const nowEditSelectShortUrl = ref('');
+const emits = defineEmits(['fetchData']);
 
-const editUrl = (urlObj: ShortUrlModel) => {
+const editUrl = async (urlObj: ShortUrlModel) => {
   nowEditTitle.value = urlObj.title;
   nowEditShortUrl.value = urlObj.shortUrl;
   nowEditSelectShortUrl.value = urlObj.shortUrl;
   visible.value = true;
+};
+const fetchData = async () => {
+  await emits('fetchData', true);
 };
 </script>
 <style scoped></style>
