@@ -3,8 +3,6 @@ import App from './App.vue';
 import router from './router';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCopy, faTrash, faLink, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
@@ -13,7 +11,6 @@ import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import Tooltip from 'primevue/tooltip';
 
-library.add(faCopy, faTrash, faLink, faEdit);
 const app = createApp(App);
 app.directive('tooltip', Tooltip);
 app.use(createPinia());
