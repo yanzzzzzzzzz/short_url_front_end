@@ -18,6 +18,9 @@
         </router-link>
       </div>
       <div v-else>
+        <Button @click="userInfo" class="mr-4">
+          <i class="pi pi-user"></i>
+        </Button>
         <Button @click="logout">
           <i class="pi pi-sign-out"></i>
         </Button>
@@ -37,6 +40,9 @@ import Button from 'primevue/button';
 import logoutService from '../service/logout';
 import { usePrimeVue } from 'primevue/config';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 const PrimeVue = usePrimeVue();
 const currentTheme = ref('aura-dark-green');
 const modeIcon = ref('pi pi-moon');
@@ -46,6 +52,9 @@ const logout = () => {
   userStore.clearUser();
   urlStore.clearUrl();
   logoutService.logout();
+};
+const userInfo = () => {
+  router.push({ name: 'userInfo' });
 };
 const switchMode = () => {
   console.log('change');
