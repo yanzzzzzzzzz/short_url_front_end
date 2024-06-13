@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { UpdateUserModel } from '../models/UserModel'
+import { UserInfoModel } from '../models/UserModel'
 const baseURL = '/api/users';
 
-const getUser = async () => {
+const getUser = async (): Promise<UserInfoModel> => {
   const response = await axios.get(baseURL);
-  return response;
+  return response.data;
 };
 
-const updateUser = async (userInfo: UpdateUserModel) => {
+const updateUser = async (userInfo: UserInfoModel) => {
   const response = await axios.patch(baseURL, userInfo);
   return response;
 }

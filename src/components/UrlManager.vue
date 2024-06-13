@@ -46,7 +46,7 @@ const fetchData = async (goToFirstPage: boolean = false) => {
   if (goToFirstPage) {
     pageInfo.value.page = 0;
   }
-  if (userStore.user.username === '') {
+  if (!userStore.getIsLogin) {
     return;
   }
   const data = await urlService.getAllUrl(searchKeyword.value, pageInfo.value);
@@ -54,11 +54,7 @@ const fetchData = async (goToFirstPage: boolean = false) => {
   UrlStore.setUrl(data.content.map((item) => transferIdModel(item)));
 };
 onMounted(async () => {
-  const name = getCookie('username');
-  if (name !== '') {
-    userStore.setUser({ username: name });
-  }
-  if (userStore.user.username !== '') {
+  if (userStore.getIsLogin) {
     try {
       await fetchData();
       showLoginSuccessNotification(userStore.user.username);

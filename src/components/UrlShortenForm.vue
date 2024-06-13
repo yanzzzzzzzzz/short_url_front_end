@@ -42,7 +42,7 @@ const generateUrl = async (): Promise<void> => {
     loading.value = true;
 
     const shortUrlModel = await urlService.createShortUrl(url.value, customShortUrl.value);
-    if (userStore.user.username === '') {
+    if (!userStore.getIsLogin) {
       addUrl({
         ...shortUrlModel,
         fullShortUrl: `${window.location.origin}/api/url/${shortUrlModel.shortUrl}`

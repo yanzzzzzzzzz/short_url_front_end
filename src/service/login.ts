@@ -7,4 +7,9 @@ const login = async (credentials: LoginModel) => {
   return response;
 };
 
-export default { login };
+const authentication = async () => {
+  const response = await axios.get(`${baseURL}/authentication`);
+  return response;
+}
+
+export default { login, authentication };

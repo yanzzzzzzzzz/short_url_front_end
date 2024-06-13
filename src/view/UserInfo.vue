@@ -20,16 +20,15 @@ import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import { ref, onMounted } from 'vue';
 import userService from '../service/user';
-import { UpdateUserModel } from '../models/UserModel';
-const userInfo = ref<UpdateUserModel>({
+import { UserInfoModel } from '../models/UserModel';
+const userInfo = ref<UserInfoModel>({
   username: '',
   email: ''
 });
 const loading = ref(false);
 onMounted(async () => {
-  const { data } = await userService.getUser();
-  userInfo.value.username = data.username;
-  userInfo.value.email = data.email;
+  const data = await userService.getUser();
+  userInfo.value = data;
 });
 const updateUser = async () => {
   try {

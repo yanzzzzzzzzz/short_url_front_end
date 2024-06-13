@@ -9,21 +9,21 @@
       <Button class="mr-4" @click="switchMode">
         <i :class="modeIcon"></i>
       </Button>
-      <div v-if="userStore.user.username === ''">
-        <router-link to="/login">
-          <Button label="Login" text></Button>
-        </router-link>
-        <router-link to="/signup">
-          <Button label="Signup" text></Button>
-        </router-link>
-      </div>
-      <div v-else>
+      <div v-if="userStore.getIsLogin">
         <Button @click="userInfo" class="mr-4">
           <i class="pi pi-user"></i>
         </Button>
         <Button @click="logout">
           <i class="pi pi-sign-out"></i>
         </Button>
+      </div>
+      <div v-else>
+        <router-link to="/login">
+          <Button label="Login" text></Button>
+        </router-link>
+        <router-link to="/signup">
+          <Button label="Signup" text></Button>
+        </router-link>
       </div>
     </template>
   </Toolbar>
@@ -50,8 +50,10 @@ const userStore = useUserStore();
 const urlStore = useUrlStore();
 const logout = () => {
   userStore.clearUser();
+  userStore.setIsLogin(false);
   urlStore.clearUrl();
   logoutService.logout();
+  router.push({ name: 'home' });
 };
 const userInfo = () => {
   router.push({ name: 'userInfo' });
