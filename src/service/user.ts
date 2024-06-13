@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserInfoModel } from '../models/UserModel'
+import { UserInfoModel } from '../models/UserModel';
 const baseURL = '/api/users';
 
 const getUser = async (): Promise<UserInfoModel> => {
@@ -10,6 +10,10 @@ const getUser = async (): Promise<UserInfoModel> => {
 const updateUser = async (userInfo: UserInfoModel) => {
   const response = await axios.patch(baseURL, userInfo);
   return response;
-}
+};
 
-export default { getUser, updateUser };
+const deleteUser = async () => {
+  await axios.delete(baseURL);
+};
+
+export default { getUser, updateUser, deleteUser };
