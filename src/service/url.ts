@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { ShortUrl, ShortUrlModel, ShortUrlPageMode } from '../models/UrlModel';
-import { PageInfoModel } from '../models/CommonModel'
 import { PageState } from 'primevue/paginator';
 
 const API_BASE_URL = '/api/url';
