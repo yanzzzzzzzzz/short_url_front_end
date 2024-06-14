@@ -23,6 +23,15 @@ describe('user registration', () => {
     cy.get('[data-cy="signup"]').click();
     cy.contains('email is invalid');
   });
+  it('sign up exist email', () => {
+    cy.contains('Signup').click();
+    cy.get('[data-cy="email"]').type(user.email);
+    cy.get('[data-cy="username"').type('aaabcasd');
+    cy.get('[data-cy="password"]').type(user.password);
+
+    cy.get('[data-cy="signup"]').click();
+    cy.contains('This email is already registered');
+  });
   it('Invalid name', () => {
     cy.contains('Signup').click();
     cy.get('[data-cy="email"]').type('adfsqweqwewe@gmail.com');
