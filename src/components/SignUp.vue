@@ -4,11 +4,11 @@
     <form @submit.prevent="createUser">
       <div class="form-container">
         <FloatLabel class="mt-4">
-          <InputText id="email" v-model="email" />
+          <InputText id="email" v-model="email" data-cy="email" />
           <label for="email">Email</label>
         </FloatLabel>
         <FloatLabel class="mt-4">
-          <InputText id="username" v-model="username" />
+          <InputText id="username" v-model="username" data-cy="username" />
           <label for="username">User name</label>
         </FloatLabel>
         <FloatLabel class="mt-4">
@@ -26,7 +26,13 @@
           Already have an account?
           <a>Log in.</a>
         </p>
-        <Button class="mb-2" label="Sign up" type="submit" :loading="loading"></Button>
+        <Button
+          class="mb-2"
+          label="Sign up"
+          type="submit"
+          :loading="loading"
+          data-cy="signup"
+        ></Button>
         <div class="css-1mkmswe">OR</div>
         <Button class="my-3" @click="loginWithGoogle()" label="Continue with Google"></Button>
       </div>

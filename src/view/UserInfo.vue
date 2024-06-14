@@ -4,19 +4,26 @@
     <div class="form-container">
       <div class="flex flex-column gap-2">
         <label for="username">Username</label>
-        <InputText id="username" v-model="userInfo.username" />
+        <InputText id="username" v-model="userInfo.username" data-cy="username" />
       </div>
       <div class="flex flex-column gap-2">
         <label for="email">Email</label>
-        <InputText id="email" v-model="userInfo.email" />
+        <InputText id="email" v-model="userInfo.email" disabled />
       </div>
-      <Button class="mt-4" label="Update" :loading="loading" @click="updateUser"></Button>
+      <Button
+        class="mt-4"
+        label="Update"
+        :loading="loading"
+        @click="updateUser"
+        data-cy="update"
+      ></Button>
       <Button
         class="mt-4"
         severity="danger"
         label="Delete Account"
         @click="deleteUser"
         :deleteLoading="deleteLoading"
+        data-cy="deleteAccount"
       ></Button>
     </div>
   </div>
