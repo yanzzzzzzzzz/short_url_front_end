@@ -21,14 +21,12 @@ import UrlHeader from './UrlHeader.vue';
 import UrlDisplayList from './UrlDisplayList.vue';
 import UrlShortenForm from './UrlShortenForm.vue';
 import SearchBar from './SearchBar.vue';
-import Paginator from 'primevue/paginator';
+import Paginator, { PageState } from 'primevue/paginator';
 import { useUrlStore } from '../stores/UrlStore';
 import { useUserStore } from '../stores/UserStore';
 import { ref, onMounted } from 'vue';
 import urlService from '../service/url';
-import { PageInfoModel } from '../models/CommonModel';
 import { transferIdModel } from '../utils/transfer';
-import { getCookie } from '../utils/cookie';
 import {
   showLoginSuccessNotification,
   showTokenExpireNotification,
@@ -36,7 +34,7 @@ import {
 } from '../utils/notifications';
 
 const messageCount = ref<number>(0);
-const pageInfo = ref<PageInfoModel>({ page: 0, first: 0, rows: 1, pageCount: 0 });
+const pageInfo = ref<PageState>({ page: 0, first: 0, rows: 1, pageCount: 0 });
 const UrlStore = useUrlStore();
 const userStore = useUserStore();
 const PageInitRows = ref<number>(1);
@@ -71,7 +69,7 @@ onMounted(async () => {
     }
   }
 });
-async function onPage(event: PageInfoModel) {
+async function onPage(event: PageState) {
   try {
     pageInfo.value = event;
     await fetchData();

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { ShortUrl, ShortUrlModel, ShortUrlPageMode } from '../models/UrlModel';
 import { PageInfoModel } from '../models/CommonModel'
+import { PageState } from 'primevue/paginator';
+
 const API_BASE_URL = '/api/url';
 
 const apiClient = axios.create({
@@ -21,7 +23,7 @@ const createShortUrl = async (url: string, customShortUrl: string): Promise<Shor
   return response.data;
 };
 
-const getAllUrl = async (searchKeyword?: string, pageInfo?: PageInfoModel): Promise<ShortUrlPageMode> => {
+const getAllUrl = async (searchKeyword?: string, pageInfo?: PageState): Promise<ShortUrlPageMode> => {
   const response = await apiClient.get('/', {
     params: { searchKeyword, page: pageInfo?.page, pageSize: pageInfo?.rows }
   });
