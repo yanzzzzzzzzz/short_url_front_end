@@ -10,7 +10,7 @@
         <i :class="modeIcon"></i>
       </Button>
       <div v-if="userStore.getIsLogin">
-        <Button @click="userInfo" class="mr-4">
+        <Button @click="userInfo" class="mr-4" data-cy="userInfo">
           <i class="pi pi-user"></i>
         </Button>
         <Button @click="logout">
