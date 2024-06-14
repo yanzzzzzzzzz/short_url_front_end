@@ -61,10 +61,6 @@ const login = async () => {
         email: email.value,
         password: password.value
       });
-      const name = getCookie('username');
-      if (name !== '') {
-        userStore.setUser({ username: name });
-      }
       router.push({ name: 'home' });
     } catch (error) {
       password.value = '';
