@@ -49,12 +49,13 @@ const generateUrl = async (): Promise<void> => {
       });
       return;
     }
-    url.value = '';
-    await emits('fetchData');
+    emits('fetchData');
     messageStore.setErrorMessage('');
-    loading.value = false;
   } catch (error) {
     messageStore.setErrorMessage(error.response.data.error);
+  } finally {
+    url.value = '';
+    customShortUrl.value = '';
     loading.value = false;
   }
 };
