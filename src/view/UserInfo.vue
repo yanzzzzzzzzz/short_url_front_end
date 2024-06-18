@@ -36,6 +36,8 @@ import userService from '../service/user';
 import { UserInfoModel } from '../models/UserModel';
 import { useRouter } from 'vue-router';
 const router = useRouter();
+import { useUrlStore } from '../stores/UrlStore';
+const UrlStore = useUrlStore();
 
 const userInfo = ref<UserInfoModel>({
   username: '',
@@ -60,6 +62,7 @@ const deleteUser = async () => {
   try {
     deleteLoading.value = true;
     await userService.deleteUser();
+    UrlStore.clearUrl();
     router.push({ name: 'home' });
   } catch (error) {
   } finally {
