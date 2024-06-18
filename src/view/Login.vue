@@ -27,7 +27,8 @@
           :loading="loading"
         ></Button>
         <div class="css-1mkmswe">OR</div>
-        <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()"></Button>
+        <Button class="my-3" label="Continue with Google" @click="loginWithGoogle()" />
+        <Button class="my-3" label="Continue with Facebook" @click="loginWithFacebook()" />
       </div>
     </form>
   </div>
@@ -37,15 +38,13 @@
 import loginService from '../service/login';
 import { ref } from 'vue';
 import router from '../router';
-import { useUserStore } from '../stores/UserStore';
-import { getCookie } from '../utils/cookie';
 import { getGoogleOAuthURLAuth } from '../utils/googleLogin';
+import { getFacebookOAuthURL } from '../utils/facebookLogin';
 import Button from 'primevue/button';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 
-const userStore = useUserStore();
 const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
@@ -76,6 +75,9 @@ const login = async () => {
 
 const loginWithGoogle = async () => {
   window.location.href = getGoogleOAuthURLAuth('select_account');
+};
+const loginWithFacebook = async () => {
+  window.location.href = getFacebookOAuthURL();
 };
 </script>
 <style scoped>
