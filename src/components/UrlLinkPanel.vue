@@ -80,9 +80,8 @@ const editUrl = (urlObj: ShortUrlModel) => {
 };
 const imshowUpdateTime = (updateDate: string) => {
   const now = new Date();
-  const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60 * 1000);
   const date = new Date(updateDate);
-  const difference = utcNow.getTime() - date.getTime();
+  const difference = now.getTime() - date.getTime();
   const seconds = Math.floor(difference / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
