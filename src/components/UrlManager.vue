@@ -10,9 +10,9 @@
       v-if="userStore.user.username !== '' && UrlStore.getUrls.length > 0"
       v-model="pageInfo"
       @page="onPage($event)"
-      :rows="PageInitRows"
+      :rows="pageInfo.rows"
       :totalRecords="messageCount"
-      :rowsPerPageOptions="[1, 2, 3]"
+      :rowsPerPageOptions="[5, 10, 20]"
     ></Paginator>
   </div>
 </template>
@@ -34,10 +34,9 @@ import {
 } from '../utils/notifications';
 
 const messageCount = ref<number>(0);
-const pageInfo = ref<PageState>({ page: 0, first: 0, rows: 1, pageCount: 0 });
+const pageInfo = ref<PageState>({ page: 0, first: 0, rows: 5, pageCount: 0 });
 const UrlStore = useUrlStore();
 const userStore = useUserStore();
-const PageInitRows = ref<number>(1);
 const searchKeyword = ref<string>('');
 
 const fetchData = async (goToFirstPage: boolean = false) => {
